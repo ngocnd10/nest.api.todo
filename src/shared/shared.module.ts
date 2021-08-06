@@ -4,6 +4,6 @@ import { AppConfigModule } from './app-config';
 import { DatabaseModule } from './database';
 
 @Module({
-  imports: [AppConfigModule, HealthModule, DatabaseModule],
+  imports: [AppConfigModule, HealthModule],
 })
 export class SharedModule {}

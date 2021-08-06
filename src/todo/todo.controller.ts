@@ -16,7 +16,10 @@ import {
 } from './commands';
 import { GetTodoQuery, GetTodosQuery } from './queries';
 
-@Controller('todo')
+@Controller({
+  path: 'todo',
+  version: '1',
+})
 export class TodoController {
   constructor(
     private readonly queryBus: QueryBus,
