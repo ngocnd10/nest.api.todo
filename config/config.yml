@@ -1,12 +1,16 @@
-http:
-  host: 'localhost'
-  port: 8080
-
 db:
   postgres:
-    url: 'localhost'
-    port: 5432
-    database: 'yaml-db'
-
-  sqlite:
-    database: 'sqlite.db'
+    schema: 'service_todo'
+    migrationsRun: false
+    write:
+      host: '127.0.0.1'
+      port: 5432
+      user: 'postgres'
+      password: 'password'
+      database: 'development'
+    read:
+      host: '127.0.0.1'
+      port: 5432
+      user: 'postgres'
+      password: 'password'
+      database: 'development'
