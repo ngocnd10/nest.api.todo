@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppConfig } from '../app-config';
-import { DatabaseOptions } from './database.interface';
+import path from 'path';
 
 @Module({
   imports: [
@@ -9,15 +9,30 @@ import { DatabaseOptions } from './database.interface';
       useFactory: (configService: AppConfig) => ({
         type: 'postgres',
         replication: {
-          master: configService.get<DatabaseOptions>('db.postgres.write'),
-          slaves: [configService.get<DatabaseOptions>('db.postgres.read')],
+          master: {
+            host: configService.get('db.postgres.write.host'),
+            port: +configService.get('db.postgres.write.port'),
+            username: configService.get('db.postgres.write.user'),
+            password: configService.get('db.postgres.write.password'),
+            database: configService.get('db.postgres.write.database'),
+          },
+          slaves: [
+            {
+              host: configService.get('db.postgres.write.host'),
+              port: +configService.get('db.postgres.write.port'),
+              username: configService.get('db.postgres.write.user'),
+              password: configService.get('db.postgres.write.password'),
+              database: configService.get('db.postgres.write.database'),
+            },
+          ],
         },
-        schema: configService.get<string>('db.postgres.schema'),
-        // entities: [__dirname + '/../**/*.entity.ts'],
+        schema: configService.get('db.postgres.schema'),
+        entities: ['dist/**/*.entity{ .ts,.js}'],
         synchronize: false,
         autoLoadEntities: true,
-        // migrationsRun: configService.get('db.postgres.migrationsRun'),
-        // migrationsTableName: 'migration',
+        migrations: ['dist/migrations/*{.ts,.js}'],
+        migrationsRun: true,
+        migrationsTableName: 'migration',
       }),
       inject: [AppConfig],
     }),

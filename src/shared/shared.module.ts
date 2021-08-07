@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { HealthModule } from './health';
 import { AppConfigModule } from './app-config';
 import { DatabaseModule } from './database';
 import { LoggerModule } from './logger';
@@ -8,8 +7,7 @@ import { LoggerModule } from './logger';
   imports: [
     AppConfigModule,
     LoggerModule,
-    HealthModule,
-    //DatabaseModule,
+    DatabaseModule,
   ],
 })
 export class SharedModule {}

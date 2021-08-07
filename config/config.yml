@@ -6,17 +6,16 @@ http:
 
 db:
   postgres:
-    schema: 'service_todo'
-    migrationsRun: false
+    schema: 'nest_service_todo'
     write:
       host: '127.0.0.1'
       port: 5432
-      user: 'postgres'
+      user: 'dev'
       password: 'password'
       database: 'development'
     read:
       host: '127.0.0.1'
       port: 5432
-      user: 'postgres'
+      user: 'dev'
       password: 'password'
       database: 'development'
