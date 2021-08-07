@@ -1,3 +1,9 @@
+api:
+  prefix: 'api'
+
+http:
+  port: 3000
+
 db:
   postgres:
     schema: 'service_todo'

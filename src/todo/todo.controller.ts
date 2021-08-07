@@ -15,6 +15,7 @@ import {
   UpdateTodoCommand,
 } from './commands';
 import { GetTodoQuery, GetTodosQuery } from './queries';
+import { AppLog } from '../shared/logger';
 
 @Controller({
   path: 'todo',

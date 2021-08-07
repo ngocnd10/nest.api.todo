@@ -1,5 +1,5 @@
 {
-  "name": "service.todo",
+  "name": "nest.api.todo",
   "version": "0.0.1",
   "description": "Todo App",
   "author": "Nguyen Duy Ngoc",
