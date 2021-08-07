@@ -33,7 +33,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       requestId: request.requestId,
       permissionCode: request.permissionCode,
       message: errInfo.length ? errInfo[0].message : 'Error',
-      service: process.env.name,
+      service: process.env.npm_package_name,
       version: process.env.npm_package_version,
       errors: [errInfo],
     };

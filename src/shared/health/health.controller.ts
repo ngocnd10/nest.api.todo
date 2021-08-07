@@ -4,6 +4,7 @@ import {
   HealthCheckService,
   TypeOrmHealthIndicator,
 } from '@nestjs/terminus/index';
+import { IgnoreTransformInterceptor } from '../../common/interceptor';
 
 @Controller('health')
 export class HealthController {
@@ -14,6 +15,7 @@ export class HealthController {
 
   @Get()
   @HealthCheck()
+  @IgnoreTransformInterceptor()
   check() {
     return this.health.check([() => this.db.pingCheck('database')]);
   }
