@@ -4,9 +4,15 @@ import { TodoController } from './todo.controller';
 import { queryHandlers } from './queries';
 import { commandHandlers } from './commands';
 import { LoggerModule } from '../shared/logger';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TodoRepository } from './repository/todo.repository';
 
 @Module({
-  imports: [CqrsModule, LoggerModule],
+  imports: [
+    CqrsModule,
+    LoggerModule,
+    TypeOrmModule.forFeature([TodoRepository]),
+  ],
   controllers: [TodoController],
   providers: [...queryHandlers, ...commandHandlers],
 })

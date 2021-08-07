@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppConfig } from '../app-config';
-import path from 'path';
 
 @Module({
   imports: [
@@ -33,6 +32,7 @@ import path from 'path';
         migrations: ['dist/migrations/*{.ts,.js}'],
         migrationsRun: true,
         migrationsTableName: 'migration',
+        logging: false,
       }),
       inject: [AppConfig],
     }),

@@ -33,8 +33,8 @@ export class TodoController {
   }
 
   @Get()
-  findAll() {
-    return this.queryBus.execute(new GetTodosQuery());
+  async findAll() {
+    return await this.queryBus.execute(new GetTodosQuery());
   }
 
   @Get(':id')
