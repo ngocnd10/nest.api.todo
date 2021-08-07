@@ -15,7 +15,7 @@ import {
   UpdateTodoCommand,
 } from './commands';
 import { GetTodoQuery, GetTodosQuery } from './queries';
-import { BasePageable } from '../common';
+import { BasePageable, ParseUUIDPipe } from '../common';
 
 @Controller({
   path: 'todo',
@@ -38,7 +38,7 @@ export class TodoController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<TodoDto> {
+  findOne(@Param('id', ParseUUIDPipe) id: string): Promise<TodoDto> {
     return this.queryBus.execute(new GetTodoQuery(id));
   }
 

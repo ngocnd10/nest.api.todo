@@ -6,10 +6,11 @@ import {
 } from '@nestjs/common';
 import { TodoModule } from './todo/todo.module';
 import { SharedModule } from './shared/shared.module';
-import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { HttpExceptionFilter } from './common/filter';
 import { TransformInterceptor } from './common/interceptor';
 import { GeneratePermissionCodeMiddleware, GenerateRequestIdMiddleware } from './common/midddleware';
+import { ValidationPipe } from './common/pipe';
 
 @Module({
   imports: [SharedModule, TodoModule],
@@ -21,6 +22,10 @@ import { GeneratePermissionCodeMiddleware, GenerateRequestIdMiddleware } from '.
     {
       provide: APP_INTERCEPTOR,
       useClass: TransformInterceptor,
+    },
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
     },
   ],
 })

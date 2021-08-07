@@ -14,15 +14,15 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response: any = ctx.getResponse();
     const request: any = ctx.getRequest();
 
+    let statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
     let errInfo: any = {
       message: 'Internal server error',
-      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal server error',
     };
-    let statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 
     if (exception instanceof HttpException) {
-      errInfo = exception.getResponse();
       statusCode = exception.getStatus();
+      errInfo = exception.getResponse();
     }
 
     const responseBody = {
@@ -32,10 +32,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
       isSuccess: true,
       requestId: request.requestId,
       permissionCode: request.permissionCode,
-      message: errInfo.length ? errInfo[0].message : 'Error',
+      message: errInfo ? errInfo.message : 'Error',
       service: process.env.npm_package_name,
       version: process.env.npm_package_version,
-      errors: [errInfo],
+      error: errInfo,
     };
 
     response.status(statusCode).json(responseBody);
