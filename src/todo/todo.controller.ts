@@ -7,7 +7,7 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
-import { CreateTodoDto, UpdateTodoDto } from './dto';
+import { CreateTodoDto, TodoDto, UpdateTodoDto } from './dto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {
   CreateTodoCommand,
@@ -15,7 +15,7 @@ import {
   UpdateTodoCommand,
 } from './commands';
 import { GetTodoQuery, GetTodosQuery } from './queries';
-import { AppLog } from '../shared/logger';
+import { BasePageable } from '../common';
 
 @Controller({
   path: 'todo',
@@ -33,12 +33,12 @@ export class TodoController {
   }
 
   @Get()
-  async findAll() {
+  async findAll(): Promise<BasePageable<TodoDto>> {
     return await this.queryBus.execute(new GetTodosQuery());
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<TodoDto> {
     return this.queryBus.execute(new GetTodoQuery(id));
   }
 

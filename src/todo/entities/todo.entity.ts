@@ -1,5 +1,5 @@
 import { Entity, Column } from 'typeorm';
-import { AbstractEntity } from '../../commons/abstract.entity';
+import { AbstractEntity } from '../../common/model/abstract.entity';
 
 @Entity('todo')
 export class Todo extends AbstractEntity {
