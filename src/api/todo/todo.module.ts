@@ -5,7 +5,7 @@ import { queryHandlers } from './queries';
 import { commandHandlers } from './commands';
 import { LoggerModule } from '../../shared/logger';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TodoRepository } from './repository/todo.repository';
+import { TodoRepository } from './repository';
 
 @Module({
   imports: [

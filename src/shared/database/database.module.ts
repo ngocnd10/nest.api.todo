@@ -32,7 +32,6 @@ import { AppConfig } from '../app-config';
         migrations: ['dist/migrations/*{.ts,.js}'],
         migrationsRun: true,
         migrationsTableName: 'migration',
-        logging: false,
       }),
       inject: [AppConfig],
     }),

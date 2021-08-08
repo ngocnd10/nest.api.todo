@@ -32,6 +32,7 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { DeleteResult } from 'typeorm';
 
 @ApiTags('todo')
 @ApiBearerAuth()
@@ -50,7 +51,7 @@ export class TodoController {
   @ApiBody({ type: CreateTodoDto })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
   @ApiForbiddenResponse({ description: 'Forbidden' })
-  create(@Body() dto: CreateTodoDto) {
+  create(@Body() dto: CreateTodoDto): Promise<TodoDto> {
     return this.commandBus.execute(new CreateTodoCommand(dto));
   }
 
@@ -59,8 +60,8 @@ export class TodoController {
   @ApiBody({ type: ListTodoDto })
   @ApiOkResponse({ type: GetTodoPageableDto, description: 'Success' })
   @ApiForbiddenResponse({ description: 'Forbidden' })
-  async findAll(@Body() dto: ListTodoDto): Promise<BasePageable<TodoDto>> {
-    return await this.queryBus.execute(new ListTodoQuery(dto));
+  findAll(@Body() dto: ListTodoDto): Promise<BasePageable<TodoDto>> {
+    return this.queryBus.execute(new ListTodoQuery(dto));
   }
 
   @Get(':id')
@@ -75,15 +76,18 @@ export class TodoController {
   @ApiBody({ type: UpdateTodoDto })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
   @ApiForbiddenResponse({ description: 'Forbidden' })
-  update(@Param('id') id: string, @Body() dto: UpdateTodoDto) {
+  update(
+    @Param('id') id: string,
+    @Body() dto: UpdateTodoDto,
+  ): Promise<TodoDto> {
     return this.commandBus.execute(new UpdateTodoCommand(id, dto));
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({ description: 'Success' })
+  @ApiOkResponse({ type: DeleteResult, description: 'Success' })
   @ApiForbiddenResponse({ description: 'Forbidden' })
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<DeleteResult> {
     return this.commandBus.execute(new RemoveTodoCommand(id));
   }
 }

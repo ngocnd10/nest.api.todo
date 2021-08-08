@@ -4,7 +4,7 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { SharedModule } from './shared';
+import { LoggerModule, SharedModule } from './shared';
 import { ApiModule } from './api';
 import {
   GeneratePermissionCodeMiddleware,
@@ -16,7 +16,7 @@ import {
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 
 @Module({
-  imports: [SharedModule, ApiModule],
+  imports: [SharedModule, ApiModule, LoggerModule],
   providers: [
     {
       provide: APP_FILTER,

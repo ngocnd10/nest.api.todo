@@ -17,6 +17,11 @@ export class AppLog extends ConsoleLogger {
     this.fileName = fileName;
   }
 
+  setContextAndFileName(context: string, fileName: string) {
+    this.context = context;
+    this.fileName = fileName;
+  }
+
   log(...data) {
     if (!this.isLevelEnabled('log')) {
       return;

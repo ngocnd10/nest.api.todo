@@ -6,13 +6,19 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
+import { AppLog } from '../../shared';
+import { QueryFailedError } from 'typeorm';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
+  constructor(private appLog: AppLog) {}
+
   catch(exception: any, host: ArgumentsHost): any {
     const ctx: HttpArgumentsHost = host.switchToHttp();
     const response: any = ctx.getResponse();
     const request: any = ctx.getRequest();
+
+    this.handleMessage(exception);
 
     let statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
     let errInfo: any = {
@@ -39,5 +45,21 @@ export class HttpExceptionFilter implements ExceptionFilter {
     };
 
     response.status(statusCode).json(responseBody);
+  }
+
+  private handleMessage(
+    exception: HttpException | QueryFailedError | Error,
+  ): void {
+    let message = 'Internal Server Error';
+
+    if (exception instanceof HttpException) {
+      return;
+    } else if (exception instanceof QueryFailedError) {
+      message = exception.stack.toString();
+    } else if (exception instanceof Error) {
+      message = exception.stack.toString();
+    }
+
+    this.appLog.error(message);
   }
 }
