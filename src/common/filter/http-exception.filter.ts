@@ -18,8 +18,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response: any = ctx.getResponse();
     const request: any = ctx.getRequest();
 
-    this.handleMessage(exception);
-
     let statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
     let errInfo: any = {
       message: 'Internal server error',
@@ -31,11 +29,13 @@ export class HttpExceptionFilter implements ExceptionFilter {
       errInfo = exception.getResponse();
     }
 
+    this.handleMessage(exception, errInfo);
+
     const responseBody = {
       apiUrl: request.url,
       statusCode,
       environment: process.env.NODE_ENVIRONMENT || 'local',
-      isSuccess: true,
+      isSuccess: false,
       requestId: request.requestId,
       permissionCode: request.permissionCode,
       message: errInfo ? errInfo.message : 'Error',
@@ -49,17 +49,18 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
   private handleMessage(
     exception: HttpException | QueryFailedError | Error,
+    errInfo: any,
   ): void {
     let message = 'Internal Server Error';
 
     if (exception instanceof HttpException) {
-      return;
+      message = errInfo.message;
     } else if (exception instanceof QueryFailedError) {
       message = exception.stack.toString();
     } else if (exception instanceof Error) {
       message = exception.stack.toString();
     }
 
-    this.appLog.error(message);
+    this.appLog.customError(message);
   }
 }

@@ -36,8 +36,15 @@ export class AppLog extends ConsoleLogger {
       return;
     }
     const obj = this.getMessageToPrint(data, 'error');
-    this.printMessage(obj.message, obj.context, 'error');
     AppLog.printJSON(obj);
+  }
+
+  customError(...data) {
+    if (!this.isLevelEnabled('error')) {
+      return;
+    }
+    const obj = this.getMessageToPrint(data, 'error');
+    this.printMessage(obj.message, obj.context, 'error');
   }
 
   warn(...data) {
