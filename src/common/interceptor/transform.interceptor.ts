@@ -1,12 +1,13 @@
 import {
   CallHandler,
   ExecutionContext,
+  HttpStatus,
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BaseResponse } from '../model/base-response';
+import { BaseResponse } from '../model';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 
 const IgnoredPropertyName = Symbol('IgnoredPropertyName');
@@ -43,7 +44,7 @@ export class TransformInterceptor<T>
           ({
             apiUrl: request.url,
             data,
-            statusCode: 200,
+            statusCode: HttpStatus.OK,
             environment: process.env.NODE_ENVIRONMENT || 'local',
             isSuccess: true,
             requestId: request.requestId,
