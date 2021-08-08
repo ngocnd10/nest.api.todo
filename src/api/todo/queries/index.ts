@@ -1,7 +1,7 @@
 import { GetTodoHandler } from './get-todo/get-todo.query.handler';
-import { GetTodosHandler } from './get-todos/get-todos.query.handler';
+import { GetTodosHandler } from './list-todo/list-todo.query.handler';
 
 export * from './get-todo/get-todo.query';
-export * from './get-todos/get-todos.query';
+export * from './list-todo/list-todo.query';
 
 export const queryHandlers = [GetTodoHandler, GetTodosHandler];

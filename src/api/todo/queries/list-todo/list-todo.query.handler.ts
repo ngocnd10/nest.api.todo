@@ -1,4 +1,4 @@
-import { GetTodosQuery } from './get-todos.query';
+import { ListTodoQuery } from './list-todo.query';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { TodoRepository } from '../../repository/todo.repository';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,14 +6,14 @@ import { BasePageable } from '../../../../common';
 import { TodoDto } from '../../dto';
 import { plainToClass } from 'class-transformer';
 
-@QueryHandler(GetTodosQuery)
-export class GetTodosHandler implements IQueryHandler<GetTodosQuery> {
+@QueryHandler(ListTodoQuery)
+export class GetTodosHandler implements IQueryHandler<ListTodoQuery> {
   constructor(
     @InjectRepository(TodoRepository)
     private readonly todoRepository: TodoRepository,
   ) {}
 
-  async execute(query: GetTodosQuery): Promise<BasePageable<TodoDto>> {
+  async execute(query: ListTodoQuery): Promise<BasePageable<TodoDto>> {
     const [todos, total] = await this.todoRepository.findAndCount();
 
     return {

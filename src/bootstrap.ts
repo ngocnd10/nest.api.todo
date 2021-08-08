@@ -16,6 +16,7 @@ export async function bootstrap() {
   const host = appConfig.get<string>('http.host');
   const port = Number(process.env.PORT_HTTP) || appConfig.get<string>('http.port');
   const apiPrefix = appConfig.get<string>('api.prefix');
+  const url = `${process.env.NODE_ENVIRONMENT ? 'https' : 'http'}://${host}:${port}/${apiPrefix}`;
 
   app.setGlobalPrefix(apiPrefix, {
     exclude: [{ path: 'health', method: RequestMethod.GET }],
@@ -26,9 +27,9 @@ export async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Todo App')
     .setDescription('The todo API description')
-    .setVersion(process.env.npm_package_version)
+    .setVersion(appConfig.version)
     .addBearerAuth()
-    .addServer(`http://${host}:${port}/${apiPrefix}`)
+    .addServer(url)
     .build();
   const options: SwaggerDocumentOptions = {
     ignoreGlobalPrefix: true,
