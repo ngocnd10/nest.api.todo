@@ -6,6 +6,7 @@ import { commandHandlers } from './commands';
 import { AppLogModule } from '../../shared/app-log';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TodoRepository } from './repository';
+import { TodoService } from './todo.service';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { TodoRepository } from './repository';
     TypeOrmModule.forFeature([TodoRepository]),
   ],
   controllers: [TodoController],
-  providers: [...queryHandlers, ...commandHandlers],
+  providers: [...queryHandlers, ...commandHandlers, TodoService],
 })
 export class TodoModule {}

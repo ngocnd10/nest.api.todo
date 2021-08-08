@@ -11,7 +11,7 @@ export class createTodoTable1628327813349 implements MigrationInterface {
           created_by uuid NULL,
           updated_by uuid NULL,
           deleted_date timestamp NULL,
-          title varchar NOT NULL,
+          title varchar NULL,
           body varchar NULL,
           PRIMARY KEY (id)
         );

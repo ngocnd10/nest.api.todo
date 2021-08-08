@@ -72,6 +72,7 @@ export class TodoController {
   }
 
   @Put(':id')
+  // @UseGuards(TodoGuard)
   @HttpCode(HttpStatus.OK)
   @ApiBody({ type: UpdateTodoDto })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
@@ -84,6 +85,7 @@ export class TodoController {
   }
 
   @Delete(':id')
+  // @UseGuards(TodoGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse({ type: DeleteResult, description: 'Success' })
   @ApiForbiddenResponse({ description: 'Forbidden' })
