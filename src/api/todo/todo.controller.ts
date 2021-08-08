@@ -15,7 +15,7 @@ import {
   UpdateTodoCommand,
 } from './commands';
 import { GetTodoQuery, GetTodosQuery } from './queries';
-import { BasePageable, ParseUUIDPipe } from '../common';
+import { BasePageable, ParseUUIDPipe } from '../../common';
 
 @Controller({
   path: 'todo',

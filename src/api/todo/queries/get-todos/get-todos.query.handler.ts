@@ -2,7 +2,7 @@ import { GetTodosQuery } from './get-todos.query';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { TodoRepository } from '../../repository/todo.repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BasePageable } from '../../../common';
+import { BasePageable } from '../../../../common';
 import { TodoDto } from '../../dto';
 import { plainToClass } from 'class-transformer';
 

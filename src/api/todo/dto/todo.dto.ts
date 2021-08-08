@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { AbstractDto } from '../../common';
+import { AbstractDto } from '../../../common';
 
 export class TodoDto extends AbstractDto {
   @Expose()

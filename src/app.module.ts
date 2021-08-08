@@ -4,16 +4,19 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { TodoModule } from './todo/todo.module';
-import { SharedModule } from './shared/shared.module';
+import { SharedModule } from './shared';
+import { ApiModule } from './api';
+import {
+  GeneratePermissionCodeMiddleware,
+  GenerateRequestIdMiddleware,
+  HttpExceptionFilter,
+  TransformInterceptor,
+  ValidationPipe,
+} from './common';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
-import { HttpExceptionFilter } from './common/filter';
-import { TransformInterceptor } from './common/interceptor';
-import { GeneratePermissionCodeMiddleware, GenerateRequestIdMiddleware } from './common/midddleware';
-import { ValidationPipe } from './common/pipe';
 
 @Module({
-  imports: [SharedModule, TodoModule],
+  imports: [SharedModule, ApiModule],
   providers: [
     {
       provide: APP_FILTER,
