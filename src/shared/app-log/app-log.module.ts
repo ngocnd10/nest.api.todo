@@ -5,4 +5,4 @@ import { AppLog } from './app-log.service';
   providers: [AppLog],
   exports: [AppLog],
 })
-export class LoggerModule {}
+export class AppLogModule {}

@@ -1,4 +1,5 @@
 import { ConsoleLogger, Injectable, Scope } from '@nestjs/common';
+import { clc } from '@nestjs/common/utils/cli-colors.util';
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class AppLog extends ConsoleLogger {
@@ -36,6 +37,7 @@ export class AppLog extends ConsoleLogger {
       return;
     }
     const obj = this.getMessageToPrint(data, 'error');
+    this.printMessage(obj.message, obj.context, 'error');
     AppLog.printJSON(obj);
   }
 
@@ -101,17 +103,33 @@ export class AppLog extends ConsoleLogger {
     logLevel?: string,
     writeStreamType?: 'stdout' | 'stderr',
   ) {
-    const output = message || '';
-    const pidMessage = `[Nest] ${process.pid}  - `;
-    const contextMessage = context ? `[${context}] ` : '';
+    const color = AppLog.getColorByLogLevel(logLevel);
+    const output = color(message) || '';
+    const pidMessage = color(`[Nest] ${process.pid}  - `);
+    const contextMessage = context ? clc.yellow(`[${context}] `) : '';
     const timestampDiff = '';
-    const formattedLogLevel = logLevel.toUpperCase().padStart(7, ' ');
+    const formattedLogLevel = color(logLevel.toUpperCase().padStart(7, ' '));
     const computedMessage = `${pidMessage}${this.getTimestamp()} ${formattedLogLevel} ${contextMessage}${output}${timestampDiff}\n`;
     process[
       writeStreamType !== null && writeStreamType !== void 0
         ? writeStreamType
         : 'stdout'
     ].write(computedMessage);
+  }
+
+  private static getColorByLogLevel(logLevel: string) {
+    switch (logLevel) {
+      case 'debug':
+        return clc.magentaBright;
+      case 'warn':
+        return clc.yellow;
+      case 'error':
+        return clc.red;
+      case 'verbose':
+        return clc.cyanBright;
+      default:
+        return clc.green;
+    }
   }
 
   private static printJSON(obj: any) {

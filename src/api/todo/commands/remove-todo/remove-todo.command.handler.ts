@@ -1,6 +1,6 @@
 import { RemoveTodoCommand } from './remove-todo.command';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { AppLog } from '../../../../shared/logger';
+import { AppLog } from '../../../../shared/app-log';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TodoRepository } from '../../repository';
 import { DeleteResult } from 'typeorm';

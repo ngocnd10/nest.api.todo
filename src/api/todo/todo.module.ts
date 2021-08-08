@@ -3,14 +3,14 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { TodoController } from './todo.controller';
 import { queryHandlers } from './queries';
 import { commandHandlers } from './commands';
-import { LoggerModule } from '../../shared/logger';
+import { AppLogModule } from '../../shared/app-log';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TodoRepository } from './repository';
 
 @Module({
   imports: [
     CqrsModule,
-    LoggerModule,
+    AppLogModule,
     TypeOrmModule.forFeature([TodoRepository]),
   ],
   controllers: [TodoController],

@@ -33,6 +33,7 @@
     "@nestjs/typeorm": "^8.0.2",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
+    "cli-color": "^2.0.0",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "pg": "^8.7.1",

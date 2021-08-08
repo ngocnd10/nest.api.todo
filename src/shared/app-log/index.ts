@@ -1,2 +1,2 @@
 export * from './app-log.service';
-export * from './logger.module';
+export * from './app-log.module';

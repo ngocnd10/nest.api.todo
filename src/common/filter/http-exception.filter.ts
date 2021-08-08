@@ -27,9 +27,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (exception instanceof HttpException) {
       statusCode = exception.getStatus();
       errInfo = exception.getResponse();
+    } else {
+      this.handleMessage(exception);
     }
-
-    this.handleMessage(exception, errInfo);
 
     const responseBody = {
       apiUrl: request.url,
@@ -49,13 +49,10 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
   private handleMessage(
     exception: HttpException | QueryFailedError | Error,
-    errInfo: any,
   ): void {
     let message = 'Internal Server Error';
 
-    if (exception instanceof HttpException) {
-      message = errInfo.message;
-    } else if (exception instanceof QueryFailedError) {
+    if (exception instanceof QueryFailedError) {
       message = exception.stack.toString();
     } else if (exception instanceof Error) {
       message = exception.stack.toString();

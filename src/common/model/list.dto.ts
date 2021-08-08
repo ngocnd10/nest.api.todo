@@ -1,14 +1,14 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsInt, IsOptional, IsString } from 'class-validator';
 
 export class ListDto {
   @ApiPropertyOptional({ default: 0 })
-  @IsNumber()
+  @IsInt()
   @IsOptional()
   page: number;
 
   @ApiPropertyOptional({ default: 10 })
-  @IsNumber()
+  @IsInt()
   @IsOptional()
   limit: number;
 
