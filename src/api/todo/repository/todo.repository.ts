@@ -5,7 +5,7 @@ import { ListTodoQuery } from '../queries';
 @EntityRepository(Todo)
 export class TodoRepository extends Repository<Todo> {
   async getAllAndCount(query: ListTodoQuery): Promise<[Todo[], number]> {
-    const { page = 0, limit, sortBy, orderBy, keyword } = query.props;
+    const { keyword, limit, orderBy, page = 0, sortBy } = query.props;
 
     const queryBuilder = this.createQueryBuilder('todo');
 
@@ -14,16 +14,12 @@ export class TodoRepository extends Repository<Todo> {
     }
 
     if (sortBy) {
-      queryBuilder.addOrderBy(
-        `todo.${sortBy}`,
-        orderBy === 'desc' ? 'DESC' : 'ASC',
-        'NULLS LAST',
-      );
+      queryBuilder.addOrderBy(`todo.${sortBy}`, orderBy === 'desc' ? 'DESC' : 'ASC', 'NULLS LAST');
     }
 
     if (keyword) {
       queryBuilder.andWhere(
-        new Brackets((qb) => {
+        new Brackets(qb => {
           qb.where(`todo.title ILike :keyword or todo.body ILike :keyword`, {
             keyword: `%${keyword}%`,
           });

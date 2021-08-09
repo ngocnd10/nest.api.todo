@@ -9,16 +9,11 @@ export function ConvertUrlToPermissionCode(req: any) {
 
   const actions = url.split('/').filter(Boolean) as string[];
   const actionLast = actions[actions.length - 1];
-  if (
-    ['GET', 'get'].includes(method) &&
-    actionLast &&
-    !validate(actionLast) &&
-    !isFinite(actionLast as any)
-  ) {
+  if (['GET', 'get'].includes(method) && actionLast && !validate(actionLast) && !isFinite(actionLast as any)) {
     method = 'list';
   }
   let permissionCode = `${appName}.${method}`;
-  actions.map((item) => {
+  actions.map(item => {
     if (item && !validate(item) && !isFinite(item as any)) {
       permissionCode += `.${item}`;
     }

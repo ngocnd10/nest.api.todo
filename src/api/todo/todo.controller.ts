@@ -1,36 +1,9 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-  Put,
-  HttpCode,
-  HttpStatus,
-} from '@nestjs/common';
-import {
-  CreateTodoDto,
-  GetToDoDto,
-  GetListTodoDto,
-  ListTodoDto,
-  TodoDto,
-  UpdateTodoDto,
-} from './dto';
+import { Controller, Get, Post, Body, Param, Delete, Put, HttpCode, HttpStatus } from '@nestjs/common';
+import { CreateTodoDto, GetToDoDto, GetListTodoDto, ListTodoDto, TodoDto, UpdateTodoDto } from './dto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import {
-  CreateTodoCommand,
-  RemoveTodoCommand,
-  UpdateTodoCommand,
-} from './commands';
+import { CreateTodoCommand, RemoveTodoCommand, UpdateTodoCommand } from './commands';
 import { GetTodoQuery, ListTodoQuery } from './queries';
-import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiForbiddenResponse,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiForbiddenResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { DeleteResult } from 'typeorm';
 import { BasePageable } from '@common/model';
 import { ParseUUIDPipe } from '@common/pipe';
@@ -43,10 +16,7 @@ import { ParseUUIDPipe } from '@common/pipe';
   version: '1',
 })
 export class TodoController {
-  constructor(
-    private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus,
-  ) {}
+  constructor(private readonly queryBus: QueryBus, private readonly commandBus: CommandBus) {}
 
   @Post()
   @HttpCode(HttpStatus.OK)
@@ -75,10 +45,7 @@ export class TodoController {
   @HttpCode(HttpStatus.OK)
   @ApiBody({ type: UpdateTodoDto })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
-  update(
-    @Param('id') id: string,
-    @Body() dto: UpdateTodoDto,
-  ): Promise<TodoDto> {
+  update(@Param('id') id: string, @Body() dto: UpdateTodoDto): Promise<TodoDto> {
     return this.commandBus.execute(new UpdateTodoCommand(id, dto));
   }
 

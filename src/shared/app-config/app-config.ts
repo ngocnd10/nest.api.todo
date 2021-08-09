@@ -16,9 +16,7 @@ export class AppConfig {
 
   static load(path = ''): AppConfig {
     if (!path) {
-      path = process.env.NODE_ENVIRONMENT
-        ? `config/config.${process.env.NODE_ENVIRONMENT}.yml`
-        : 'config/config.yml';
+      path = process.env.NODE_ENVIRONMENT ? `config/config.${process.env.NODE_ENVIRONMENT}.yml` : 'config/config.yml';
     }
 
     const config = yaml.load(readFileSync(path, 'utf8')) as Record<string, any>;

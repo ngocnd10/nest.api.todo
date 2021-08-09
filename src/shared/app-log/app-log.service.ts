@@ -97,12 +97,7 @@ export class AppLog extends ConsoleLogger {
     };
   }
 
-  private printMessage(
-    message: any,
-    context?: string,
-    logLevel?: string,
-    writeStreamType?: 'stdout' | 'stderr',
-  ) {
+  private printMessage(message: any, context?: string, logLevel?: string, writeStreamType?: 'stdout' | 'stderr') {
     const color = AppLog.getColorByLogLevel(logLevel);
     const output = color(message) || '';
     const pidMessage = color(`[Nest] ${process.pid}  - `);
@@ -110,11 +105,7 @@ export class AppLog extends ConsoleLogger {
     const timestampDiff = '';
     const formattedLogLevel = color(logLevel.toUpperCase().padStart(7, ' '));
     const computedMessage = `${pidMessage}${this.getTimestamp()} ${formattedLogLevel} ${contextMessage}${output}${timestampDiff}\n`;
-    process[
-      writeStreamType !== null && writeStreamType !== void 0
-        ? writeStreamType
-        : 'stdout'
-    ].write(computedMessage);
+    process[writeStreamType !== null && writeStreamType !== void 0 ? writeStreamType : 'stdout'].write(computedMessage);
   }
 
   private static getColorByLogLevel(logLevel: string) {

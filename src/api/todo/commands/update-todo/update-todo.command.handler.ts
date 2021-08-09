@@ -20,7 +20,7 @@ export class UpdateTodoHandler implements ICommandHandler<UpdateTodoCommand> {
   }
 
   async execute(command: UpdateTodoCommand): Promise<TodoDto> {
-    const { id, title, body } = command.props;
+    const { body, id, title } = command.props;
 
     let todo = await this.todoRepository.findOne(id);
 

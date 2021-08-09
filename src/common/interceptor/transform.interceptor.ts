@@ -1,10 +1,4 @@
-import {
-  CallHandler,
-  ExecutionContext,
-  HttpStatus,
-  Injectable,
-  NestInterceptor,
-} from '@nestjs/common';
+import { CallHandler, ExecutionContext, HttpStatus, Injectable, NestInterceptor } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BaseResponse } from '../model';
@@ -13,23 +7,14 @@ import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 const IgnoredPropertyName = Symbol('IgnoredPropertyName');
 
 export function IgnoreTransformInterceptor() {
-  return function (
-    target,
-    propertyKey: string,
-    descriptor: PropertyDescriptor,
-  ) {
+  return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
     descriptor.value[IgnoredPropertyName] = true;
   };
 }
 
 @Injectable()
-export class TransformInterceptor<T>
-  implements NestInterceptor<T, BaseResponse<T>>
-{
-  intercept(
-    context: ExecutionContext,
-    next: CallHandler,
-  ): Observable<BaseResponse<T>> {
+export class TransformInterceptor<T> implements NestInterceptor<T, BaseResponse<T>> {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<BaseResponse<T>> {
     const ctx: HttpArgumentsHost = context.switchToHttp();
     const request: any = ctx.getRequest();
 
@@ -40,7 +25,7 @@ export class TransformInterceptor<T>
 
     return next.handle().pipe(
       map(
-        (data) =>
+        data =>
           ({
             apiUrl: request.url,
             data,

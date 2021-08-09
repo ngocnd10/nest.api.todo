@@ -1,10 +1,4 @@
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
 import { QueryFailedError } from 'typeorm';
 import { AppLog } from '@shared/app-log';
@@ -47,9 +41,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     response.status(statusCode).json(responseBody);
   }
 
-  private handleMessage(
-    exception: HttpException | QueryFailedError | Error,
-  ): void {
+  private handleMessage(exception: HttpException | QueryFailedError | Error): void {
     let message = 'Internal Server Error';
 
     if (exception instanceof QueryFailedError) {

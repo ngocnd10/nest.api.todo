@@ -9,11 +9,7 @@ import { TodoRepository } from './repository';
 import { TodoService } from './todo.service';
 
 @Module({
-  imports: [
-    CqrsModule,
-    AppLogModule,
-    TypeOrmModule.forFeature([TodoRepository]),
-  ],
+  imports: [CqrsModule, AppLogModule, TypeOrmModule.forFeature([TodoRepository])],
   controllers: [TodoController],
   providers: [...queryHandlers, ...commandHandlers, TodoService],
 })
