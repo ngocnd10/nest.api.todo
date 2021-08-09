@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TodoModule } from './todo';
-import { AuthModule } from './auth/auth.module';
+import { UserModule } from '@api/user';
+import { AuthModule } from '@api/auth';
 
 @Module({
-  imports: [TodoModule, AuthModule],
+  imports: [TodoModule, UserModule, AuthModule],
 })
 export class ApiModule {}

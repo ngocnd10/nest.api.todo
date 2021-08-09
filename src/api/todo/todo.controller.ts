@@ -8,7 +8,7 @@ import { DeleteResult } from 'typeorm';
 import { BasePageable } from '@common/model';
 import { ParseUUIDPipe } from '@common/pipe';
 
-@ApiTags('todo')
+@ApiTags('Todo')
 @ApiBearerAuth()
 @ApiForbiddenResponse({ description: 'Forbidden' })
 @Controller({

@@ -1,1 +1,2 @@
-export * from './strong-password.validator';
+export * from './is-example.validator';
+export * from './is-example-2.validator';
