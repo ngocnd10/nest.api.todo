@@ -6,6 +6,7 @@ import { AppLog } from '../../../../shared';
 import { plainToClass } from 'class-transformer';
 import { Todo } from '../../entities';
 import { TodoDto } from '../../dto';
+import { isNil } from '@nestjs/common/utils/shared.utils';
 
 @CommandHandler(CreateTodoCommand)
 export class CreateTodoHandler implements ICommandHandler<CreateTodoCommand> {
@@ -20,17 +21,10 @@ export class CreateTodoHandler implements ICommandHandler<CreateTodoCommand> {
   async execute(command: CreateTodoCommand): Promise<TodoDto> {
     const { title, body } = command.props;
 
-    // Use decorator isExist instead
-    // if (isNil(title) && isNil(body)) {
-    //   this.appLog.error({
-    //     message: 'The title and body are not defined',
-    //     error: 'Bad Request',
-    //   });
-    //   throw new BadRequestException({
-    //     message: 'The title and body are not defined',
-    //     error: 'Bad Request',
-    //   });
-    // }
+    if (isNil(title) && isNil(body)) {
+      this.appLog.error('The title and body are not defined');
+      return null;
+    }
 
     const todo = Object.assign(new Todo(), { title, body });
     const entity = await this.todoRepository.save(todo);
