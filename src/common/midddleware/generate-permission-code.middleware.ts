@@ -1,6 +1,6 @@
 import { NestMiddleware } from '@nestjs/common';
 import { NextFunction } from 'express';
-import { validate as uuidValidate } from 'uuid';
+import { validate } from 'uuid';
 
 export function ConvertUrlToPermissionCode(req: any) {
   const url = req.baseUrl + req.path;
@@ -12,14 +12,14 @@ export function ConvertUrlToPermissionCode(req: any) {
   if (
     ['GET', 'get'].includes(method) &&
     actionLast &&
-    !uuidValidate(actionLast) &&
+    !validate(actionLast) &&
     !isFinite(actionLast as any)
   ) {
     method = 'list';
   }
   let permissionCode = `${appName}.${method}`;
   actions.map((item) => {
-    if (item && !uuidValidate(item) && !isFinite(item as any)) {
+    if (item && !validate(item) && !isFinite(item as any)) {
       permissionCode += `.${item}`;
     }
   });

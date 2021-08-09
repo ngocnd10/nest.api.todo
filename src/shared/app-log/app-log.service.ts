@@ -1,5 +1,5 @@
 import { ConsoleLogger, Injectable, Scope } from '@nestjs/common';
-import { clc } from '@nestjs/common/utils/cli-colors.util';
+import * as clc from 'cli-color';
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class AppLog extends ConsoleLogger {
