@@ -14,7 +14,8 @@
     "skipLibCheck": true,
     "paths": {
       "@common/*": ["src/common/*"],
-      "@shared/*": ["src/shared/*"]
+      "@shared/*": ["src/shared/*"],
+      "@api/*": ["src/api/*"]
     }
   }
 }
