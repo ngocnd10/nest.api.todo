@@ -1,9 +1,16 @@
 import { EntityRepository, Repository, Brackets } from 'typeorm';
-import { Todo } from '../entities';
-import { ListTodoQuery } from '../queries';
+import { Todo } from '../entity';
+import { ListTodoQuery } from '../query';
+import { CreateTodoDto } from '../dto';
 
 @EntityRepository(Todo)
 export class TodoRepository extends Repository<Todo> {
+  async createTodo(createTodoDto: CreateTodoDto): Promise<Todo> {
+    const { body, title } = createTodoDto;
+    const todo = this.create({ title, body });
+    return await this.save(todo);
+  }
+
   async getAllAndCount(query: ListTodoQuery): Promise<[Todo[], number]> {
     const { keyword, limit, orderBy, page = 0, sortBy } = query.props;
 

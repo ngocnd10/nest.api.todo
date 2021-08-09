@@ -3,7 +3,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { TodoDto } from '../../dto';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
-import { Todo } from '../../entities';
+import { Todo } from '../../entity';
 import { AppLog } from '@shared/app-log';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TodoRepository } from '../../repository';

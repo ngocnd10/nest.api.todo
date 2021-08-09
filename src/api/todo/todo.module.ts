@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TodoController } from './todo.controller';
-import { queryHandlers } from './queries';
-import { commandHandlers } from './commands';
+import { queryHandlers } from './query';
+import { commandHandlers } from './command';
 import { AppLogModule } from '@shared/app-log';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TodoRepository } from './repository';

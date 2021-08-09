@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, HttpCode, HttpStatus } from '@nestjs/common';
 import { CreateTodoDto, GetToDoDto, GetListTodoDto, ListTodoDto, TodoDto, UpdateTodoDto } from './dto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateTodoCommand, RemoveTodoCommand, UpdateTodoCommand } from './commands';
-import { GetTodoQuery, ListTodoQuery } from './queries';
+import { CreateTodoCommand, RemoveTodoCommand, UpdateTodoCommand } from './command';
+import { GetTodoQuery, ListTodoQuery } from './query';
 import { ApiBearerAuth, ApiBody, ApiForbiddenResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { DeleteResult } from 'typeorm';
 import { BasePageable } from '@common/model';

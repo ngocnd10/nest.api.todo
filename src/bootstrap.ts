@@ -4,6 +4,7 @@ import { RequestMethod } from '@nestjs/common';
 import { DocumentBuilder, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
 import { AppConfig } from '@shared/app-config';
 import { AppLog } from '@shared/app-log';
+import { ValidationPipe } from '@common/pipe';
 
 export async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,6 +21,7 @@ export async function bootstrap() {
   });
   app.enableVersioning();
   app.enableCors();
+  app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
     .setTitle('Todo App')

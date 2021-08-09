@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { TodoRepository } from '../../repository';
 import { AppLog } from '@shared/app-log';
 import { plainToClass } from 'class-transformer';
-import { Todo } from '../../entities';
+import { Todo } from '../../entity';
 import { TodoDto } from '../../dto';
 import { isNil } from '@nestjs/common/utils/shared.utils';
 
@@ -26,8 +26,7 @@ export class CreateTodoHandler implements ICommandHandler<CreateTodoCommand> {
       return null;
     }
 
-    const todo = Object.assign(new Todo(), { title, body });
-    const entity = await this.todoRepository.save(todo);
+    const entity = await this.todoRepository.createTodo({ title, body });
 
     return plainToClass(TodoDto, entity, { excludeExtraneousValues: true });
   }

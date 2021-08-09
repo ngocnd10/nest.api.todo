@@ -4,7 +4,7 @@ export class createTodoTable1628327813349 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
         SET search_path TO nest_service_todo;
-        CREATE TABLE todo (
+        CREATE TABLE "todo" (
           id uuid NOT NULL DEFAULT uuid_generate_v4(),
           "version" int4 NOT NULL,
           created_date timestamp NOT NULL DEFAULT now(),
@@ -22,7 +22,7 @@ export class createTodoTable1628327813349 implements MigrationInterface {
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
         SET search_path TO nest_service_todo;
-        DROP TABLE todo;
+        DROP TABLE "todo";
     `);
   }
 }

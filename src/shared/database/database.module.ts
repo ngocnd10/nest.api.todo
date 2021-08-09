@@ -29,7 +29,7 @@ import { AppConfig } from '../app-config';
         entities: ['dist/**/*.entity{ .ts,.js}'],
         synchronize: false,
         autoLoadEntities: true,
-        migrations: ['dist/migrations/*{.ts,.js}'],
+        migrations: ['dist/migration/*{.ts,.js}'],
         migrationsRun: true,
         migrationsTableName: 'migration',
       }),
