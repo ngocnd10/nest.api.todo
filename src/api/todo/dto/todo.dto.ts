@@ -12,7 +12,7 @@ export class TodoDto extends PartialType(AbstractDto) {
   body: string;
 }
 
-export class TodoPageable extends BasePageable<TodoDto> {
+export class TodoDtoPageable extends BasePageable<TodoDto> {
   @ApiProperty({
     isArray: true,
     type: TodoDto,
@@ -20,9 +20,9 @@ export class TodoPageable extends BasePageable<TodoDto> {
   items: TodoDto[];
 }
 
-export class GetTodoPageableDto extends BaseResponse<TodoPageable> {
-  @ApiProperty({ type: TodoPageable })
-  data: TodoPageable;
+export class GetListTodoDto extends BaseResponse<TodoDtoPageable> {
+  @ApiProperty({ type: TodoDtoPageable })
+  data: TodoDtoPageable;
 }
 
 export class GetToDoDto extends BaseResponse<TodoDto> {

@@ -1,25 +1,44 @@
 import { BasePageable } from './base.pageable';
 import { ApiProperty } from '@nestjs/swagger';
 
+class ErrorInfo {
+  @ApiProperty()
+  message: string;
+
+  @ApiProperty()
+  error: string;
+}
+
 export class BaseResponse<T> {
   @ApiProperty()
   apiUrl: string;
+
   data: T | BasePageable<T>;
+
   @ApiProperty()
   environment: string;
-  @ApiProperty()
+
+  @ApiProperty({ default: true })
   isSuccess: boolean;
-  @ApiProperty()
+
+  @ApiProperty({ default: 'Success' })
   message: string;
+
   @ApiProperty()
   permissionCode: string;
+
   @ApiProperty()
   requestId: string;
+
   @ApiProperty()
   service: string;
-  @ApiProperty()
+
+  @ApiProperty({ default: 200 })
   statusCode: number;
+
   @ApiProperty()
   version: string;
-  error: any;
+
+  @ApiProperty({ type: ErrorInfo })
+  error: ErrorInfo;
 }
