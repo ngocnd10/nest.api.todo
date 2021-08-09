@@ -4,8 +4,8 @@ import {
   HealthCheckService,
   TypeOrmHealthIndicator,
 } from '@nestjs/terminus/index';
-import { IgnoreTransformInterceptor } from '../../common/interceptor';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { IgnoreTransformInterceptor } from '@common/interceptor';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('health')
 @Controller('health')

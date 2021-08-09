@@ -6,8 +6,8 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { HttpArgumentsHost } from '@nestjs/common/interfaces';
-import { AppLog } from '../../shared';
 import { QueryFailedError } from 'typeorm';
+import { AppLog } from '@shared/app-log';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {

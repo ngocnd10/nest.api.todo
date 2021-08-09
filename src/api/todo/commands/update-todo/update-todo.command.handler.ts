@@ -4,7 +4,7 @@ import { TodoDto } from '../../dto';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { Todo } from '../../entities';
-import { AppLog } from '../../../../shared/app-log';
+import { AppLog } from '@shared/app-log';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TodoRepository } from '../../repository';
 import { isNil } from 'lodash';

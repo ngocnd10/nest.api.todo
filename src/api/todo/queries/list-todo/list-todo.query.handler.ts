@@ -2,7 +2,7 @@ import { ListTodoQuery } from './list-todo.query';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { TodoRepository } from '../../repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BasePageable } from '../../../../common';
+import { BasePageable } from '@common/model';
 import { TodoDto } from '../../dto';
 import { plainToClass } from 'class-transformer';
 

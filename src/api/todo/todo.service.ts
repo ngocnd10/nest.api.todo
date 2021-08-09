@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AppLog } from '../../shared/app-log';
+import { AppLog } from '@shared/app-log';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TodoRepository } from './repository';
 import { Todo } from './entities';

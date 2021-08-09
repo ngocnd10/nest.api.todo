@@ -3,7 +3,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { TodoController } from './todo.controller';
 import { queryHandlers } from './queries';
 import { commandHandlers } from './commands';
-import { AppLogModule } from '../../shared/app-log';
+import { AppLogModule } from '@shared/app-log';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TodoRepository } from './repository';
 import { TodoService } from './todo.service';

@@ -2,7 +2,7 @@ import { CreateTodoCommand } from './create-todo.command';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TodoRepository } from '../../repository';
-import { AppLog } from '../../../../shared';
+import { AppLog } from '@shared/app-log';
 import { plainToClass } from 'class-transformer';
 import { Todo } from '../../entities';
 import { TodoDto } from '../../dto';

@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
-import { AbstractDto, BasePageable, BaseResponse } from '../../../common';
 import { ApiProperty, ApiResponseProperty, PartialType } from '@nestjs/swagger';
+import { AbstractDto, BasePageable, BaseResponse } from '@common/model';
 
 export class TodoDto extends PartialType(AbstractDto) {
   @ApiResponseProperty()

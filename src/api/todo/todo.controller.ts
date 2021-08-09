@@ -24,7 +24,6 @@ import {
   UpdateTodoCommand,
 } from './commands';
 import { GetTodoQuery, ListTodoQuery } from './queries';
-import { BasePageable, ParseUUIDPipe } from '../../common';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -33,6 +32,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { DeleteResult } from 'typeorm';
+import { BasePageable } from '@common/model';
+import { ParseUUIDPipe } from '@common/pipe';
 
 @ApiTags('todo')
 @ApiBearerAuth()

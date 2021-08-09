@@ -1,12 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { RequestMethod } from '@nestjs/common';
-import { AppConfig, AppLog } from './shared';
 import {
   DocumentBuilder,
   SwaggerDocumentOptions,
   SwaggerModule,
 } from '@nestjs/swagger';
+import { AppConfig } from '@shared/app-config';
+import { AppLog } from '@shared/app-log';
 
 export async function bootstrap() {
   const app = await NestFactory.create(AppModule);
