@@ -20,7 +20,8 @@ export class UpdateTodoHandler implements ICommandHandler<UpdateTodoCommand> {
   }
 
   async execute(command: UpdateTodoCommand): Promise<TodoDto> {
-    const { body, id, title } = command.props;
+    const { body, title, updatedBy } = command.props;
+    const { id } = command;
 
     let todo = await this.todoRepository.findOne(id);
 
@@ -35,19 +36,9 @@ export class UpdateTodoHandler implements ICommandHandler<UpdateTodoCommand> {
       });
     }
 
-    if (isNil(title) && isNil(body)) {
-      this.appLog.error({
-        message: 'The title and body are not defined',
-        error: 'Bad Request',
-      });
-      throw new BadRequestException({
-        message: 'The title and body are not defined',
-        error: 'Bad Request',
-      });
-    }
-    todo = { ...todo, title, body } as Todo;
-    await this.todoRepository.update(id, todo);
+    todo = { ...todo, title, body, updatedBy } as Todo;
+    const entity = await this.todoRepository.save(todo);
 
-    return plainToClass(TodoDto, todo, { excludeExtraneousValues: true });
+    return plainToClass(TodoDto, entity, { excludeExtraneousValues: true });
   }
 }

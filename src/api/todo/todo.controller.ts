@@ -8,6 +8,9 @@ import { DeleteResult } from 'typeorm';
 import { BasePageable } from '@common/model';
 import { ParseUUIDPipe } from '@common/pipe';
 import { JwtAuthGuard } from '@api/auth';
+import { GetUser } from '@common/decorator';
+import { User } from '@api/user';
+import { TodoGuard } from '@api/todo/todo.guard';
 
 @ApiTags('Todo')
 @ApiBearerAuth()
@@ -25,8 +28,8 @@ export class TodoController {
   @ApiOperation({ summary: 'Create Todo', description: 'Create Todo' })
   @ApiBody({ type: CreateTodoDto })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
-  create(@Body() dto: CreateTodoDto): Promise<TodoDto> {
-    return this.commandBus.execute(new CreateTodoCommand(dto));
+  create(@Body() dto: CreateTodoDto, @GetUser() user: any): Promise<TodoDto> {
+    return this.commandBus.execute(new CreateTodoCommand({ ...dto, createdBy: user.sub }));
   }
 
   @Post('list')
@@ -46,17 +49,17 @@ export class TodoController {
   }
 
   @Put(':id')
-  // @UseGuards(TodoGuard)
+  @UseGuards(TodoGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Update Todo', description: 'Update Todo' })
   @ApiBody({ type: UpdateTodoDto })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
-  update(@Param('id') id: string, @Body() dto: UpdateTodoDto): Promise<TodoDto> {
-    return this.commandBus.execute(new UpdateTodoCommand(id, dto));
+  update(@Param('id') id: string, @Body() dto: UpdateTodoDto, @GetUser() user: any): Promise<TodoDto> {
+    return this.commandBus.execute(new UpdateTodoCommand(id, { ...dto, updatedBy: user.sub }));
   }
 
   @Delete(':id')
-  // @UseGuards(TodoGuard)
+  @UseGuards(TodoGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Delete Todo', description: 'Delete Todo' })
   @ApiOkResponse({ type: DeleteResult, description: 'Success' })

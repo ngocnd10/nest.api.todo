@@ -6,4 +6,6 @@ export class UpdateTodoDto extends PartialType(CreateTodoDto) {
   @ApiProperty()
   @IsUUID()
   id: string;
+
+  updatedBy: string;
 }

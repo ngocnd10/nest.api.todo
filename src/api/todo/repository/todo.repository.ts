@@ -1,13 +1,14 @@
 import { EntityRepository, Repository, Brackets } from 'typeorm';
 import { Todo } from '../entity';
 import { ListTodoQuery } from '../query';
-import { CreateTodoDto } from '../dto';
+import { CreateTodoDto, UpdateTodoDto } from '../dto';
+import { UpdateTodoCommand } from '@api/todo';
 
 @EntityRepository(Todo)
 export class TodoRepository extends Repository<Todo> {
   async createTodo(createTodoDto: CreateTodoDto): Promise<Todo> {
-    const { body, title } = createTodoDto;
-    const todo = this.create({ title, body });
+    const { body, createdBy, title } = createTodoDto;
+    const todo = this.create({ title, body, createdBy });
     return await this.save(todo);
   }
 
