@@ -21,7 +21,7 @@ export class TodoRepository extends Repository<Todo> {
     }
 
     if (sortBy) {
-      queryBuilder.addOrderBy(`todo.${sortBy}`, orderBy === 'desc' ? 'DESC' : 'ASC', 'NULLS LAST');
+      queryBuilder.addOrderBy(`todo.${sortBy}`, orderBy === 1 ? 'ASC' : 'DESC', 'NULLS LAST');
     }
 
     if (keyword) {

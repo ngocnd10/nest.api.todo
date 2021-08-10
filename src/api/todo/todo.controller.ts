@@ -3,7 +3,7 @@ import { CreateTodoDto, GetToDoDto, GetListTodoDto, ListTodoDto, TodoDto, Update
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateTodoCommand, RemoveTodoCommand, UpdateTodoCommand } from './command';
 import { GetTodoQuery, ListTodoQuery } from './query';
-import { ApiBearerAuth, ApiBody, ApiForbiddenResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { DeleteResult } from 'typeorm';
 import { BasePageable } from '@common/model';
 import { ParseUUIDPipe } from '@common/pipe';
@@ -20,6 +20,7 @@ export class TodoController {
 
   @Post()
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Create Todo', description: 'Create Todo' })
   @ApiBody({ type: CreateTodoDto })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
   create(@Body() dto: CreateTodoDto): Promise<TodoDto> {
@@ -28,6 +29,7 @@ export class TodoController {
 
   @Post('list')
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'List Todo', description: 'List Todo' })
   @ApiBody({ type: ListTodoDto })
   @ApiOkResponse({ type: GetListTodoDto, description: 'Success' })
   findAll(@Body() dto: ListTodoDto): Promise<BasePageable<TodoDto>> {
@@ -35,6 +37,7 @@ export class TodoController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get Todo By Id', description: 'Get Todo By Id' })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
   findOne(@Param('id', ParseUUIDPipe) id: string): Promise<TodoDto> {
     return this.queryBus.execute(new GetTodoQuery(id));
@@ -43,6 +46,7 @@ export class TodoController {
   @Put(':id')
   // @UseGuards(TodoGuard)
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Update Todo', description: 'Update Todo' })
   @ApiBody({ type: UpdateTodoDto })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
   update(@Param('id') id: string, @Body() dto: UpdateTodoDto): Promise<TodoDto> {
@@ -52,6 +56,7 @@ export class TodoController {
   @Delete(':id')
   // @UseGuards(TodoGuard)
   @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Delete Todo', description: 'Delete Todo' })
   @ApiOkResponse({ type: DeleteResult, description: 'Success' })
   remove(@Param('id') id: string): Promise<DeleteResult> {
     return this.commandBus.execute(new RemoveTodoCommand(id));

@@ -5,4 +5,12 @@ export class AbstractDto {
   @ApiResponseProperty()
   @Expose()
   id: string;
+
+  @ApiResponseProperty()
+  @Expose()
+  createdDate: Date;
+
+  @ApiResponseProperty()
+  @Expose()
+  updatedDate: Date;
 }

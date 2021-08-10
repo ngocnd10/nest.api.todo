@@ -1,5 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsInt, IsOptional, IsString } from 'class-validator';
+import { IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
 
 export class ListDto {
   @ApiPropertyOptional({ default: 0 })
@@ -12,15 +12,17 @@ export class ListDto {
   @IsOptional()
   limit: number;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ default: 'createdDate' })
   @IsString()
   @IsOptional()
   sortBy: string;
 
-  @ApiPropertyOptional()
-  @IsString()
+  @ApiPropertyOptional({ default: 1 })
+  @IsInt()
+  @Min(-1)
+  @Max(1)
   @IsOptional()
-  orderBy: string;
+  orderBy: number;
 
   @ApiPropertyOptional()
   @IsString()
