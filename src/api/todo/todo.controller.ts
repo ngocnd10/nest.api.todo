@@ -29,7 +29,7 @@ export class TodoController {
 
   @Post('list')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'List Todo', description: 'List Todo' })
+  @ApiOperation({ summary: 'Search Todo List', description: 'Search Todo List' })
   @ApiBody({ type: ListTodoDto })
   @ApiOkResponse({ type: GetListTodoDto, description: 'Success' })
   findAll(@Body() dto: ListTodoDto): Promise<BasePageable<TodoDto>> {

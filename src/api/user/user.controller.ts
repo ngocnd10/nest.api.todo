@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto';
 import { CommandBus } from '@nestjs/cqrs';
 import { CreateUserCommand } from './command';
 import { ApiBearerAuth, ApiBody, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { GetUserDto } from '@api/user/dto/user.dto';
 
 @ApiTags('User')
 @ApiBearerAuth()
@@ -18,7 +19,7 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Create User', description: 'Create User' })
   @ApiBody({ type: CreateUserDto })
-  @ApiOkResponse({ description: 'Success' })
+  @ApiOkResponse({ type: GetUserDto, description: 'Success' })
   create(@Body() dto: CreateUserDto): Promise<void> {
     return this.commandBus.execute(new CreateUserCommand(dto));
   }

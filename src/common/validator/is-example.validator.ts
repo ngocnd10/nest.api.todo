@@ -11,6 +11,7 @@ export function IsExample(validationOptions?: ValidationOptions) {
       options: validationOptions,
       validator: {
         validate(value: any, args: ValidationArguments) {
+          // logic here
           return true;
         },
       },

@@ -19,9 +19,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "compodoc": "npx @compodoc/compodoc -p tsconfig.json -s",
-    "migration:new": "typeorm migration:create -n",
-    "migration:run": "typeorm migration:run",
-    "migration:revert": "typeorm migration:revert"
+    "migration:new": "cd src/migration && typeorm migration:create -n",
+    "migration:run": "cd src/migration && typeorm migration:run",
+    "migration:revert": "cd src/migration && typeorm migration:revert"
   },
   "dependencies": {
     "@nestjs/axios": "0.0.1",

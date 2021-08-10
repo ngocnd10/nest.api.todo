@@ -4,6 +4,6 @@ import { UserModule } from './user';
 import { AuthModule } from './auth';
 
 @Module({
-  imports: [TodoModule, UserModule, AuthModule],
+  imports: [AuthModule, UserModule, TodoModule],
 })
 export class ApiModule {}
