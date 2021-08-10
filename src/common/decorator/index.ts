@@ -1,1 +1,1 @@
-export * from './get-principal.decorator';
+export * from './get-user.decorator';

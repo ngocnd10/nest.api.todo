@@ -7,13 +7,16 @@ export class createTodoTable1628327813349 implements MigrationInterface {
         CREATE TABLE "todo" (
           id uuid NOT NULL DEFAULT uuid_generate_v4(),
           "version" int4 NOT NULL,
+          
+          title varchar NULL,
+          body varchar NULL,
+          
           created_date timestamp NOT NULL DEFAULT now(),
           updated_date timestamp NOT NULL DEFAULT now(),
           created_by uuid NULL,
           updated_by uuid NULL,
           deleted_date timestamp NULL,
-          title varchar NULL,
-          body varchar NULL,
+         
           PRIMARY KEY (id)
         );
     `);

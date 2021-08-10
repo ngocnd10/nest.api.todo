@@ -4,3 +4,4 @@ export * from './model';
 export * from './midddleware';
 export * from './pipe';
 export * from './decorator';
+export * from './guard';

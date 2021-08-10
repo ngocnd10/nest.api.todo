@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
 import { CreateTodoDto, GetToDoDto, GetListTodoDto, ListTodoDto, TodoDto, UpdateTodoDto } from './dto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateTodoCommand, RemoveTodoCommand, UpdateTodoCommand } from './command';
@@ -7,6 +7,7 @@ import { ApiBearerAuth, ApiBody, ApiForbiddenResponse, ApiOkResponse, ApiOperati
 import { DeleteResult } from 'typeorm';
 import { BasePageable } from '@common/model';
 import { ParseUUIDPipe } from '@common/pipe';
+import { JwtAuthGuard } from '@api/auth';
 
 @ApiTags('Todo')
 @ApiBearerAuth()
@@ -15,6 +16,7 @@ import { ParseUUIDPipe } from '@common/pipe';
   path: 'todo',
   version: '1',
 })
+@UseGuards(JwtAuthGuard)
 export class TodoController {
   constructor(private readonly queryBus: QueryBus, private readonly commandBus: CommandBus) {}
 
