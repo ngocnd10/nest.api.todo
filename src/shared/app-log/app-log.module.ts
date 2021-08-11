@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppLog } from './app-log.service';
+import { AppLog } from './app-log';
 
 @Module({
   providers: [AppLog],
