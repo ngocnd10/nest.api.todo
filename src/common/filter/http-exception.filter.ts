@@ -29,13 +29,19 @@ export class HttpExceptionFilter implements ExceptionFilter {
       this.handleMessage(exception);
     }
 
+    const { permissionCode, requestId, url } = request;
+
+    if (url.match(/health|login/)) {
+      return response.status(statusCode).json(errInfo);
+    }
+
     const responseBody = {
-      apiUrl: request.url,
+      apiUrl: url,
       statusCode,
       environment: process.env.NODE_ENVIRONMENT || 'local',
       isSuccess: false,
-      requestId: request.requestId,
-      permissionCode: request.permissionCode,
+      requestId,
+      permissionCode,
       message: errInfo ? errInfo.message : 'Error',
       service: process.env.npm_package_name,
       version: process.env.npm_package_version,

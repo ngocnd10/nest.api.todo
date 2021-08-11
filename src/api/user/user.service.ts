@@ -14,6 +14,6 @@ export class UserService {
   }
 
   async findByUsername(username: string): Promise<User> {
-    return await this.userRepository.findOne({ username });
+    return await this.userRepository.findOne({ username: username.toLowerCase() });
   }
 }

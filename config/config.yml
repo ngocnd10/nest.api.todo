@@ -20,3 +20,11 @@ db:
       user: 'dev'
       password: 'password'
       database: 'development'
+
+redis:
+  db: 1
+  host: '127.0.0.1'
+  password: null
+  port: 6379
+  prefix: 'nest.api.todo::'
+  ttl: 300
