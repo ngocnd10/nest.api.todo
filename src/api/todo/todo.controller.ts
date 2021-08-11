@@ -1,16 +1,15 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
-import { CreateTodoDto, GetToDoDto, GetListTodoDto, ListTodoDto, TodoDto, UpdateTodoDto } from './dto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { CreateTodoCommand, RemoveTodoCommand, UpdateTodoCommand } from './command';
-import { GetTodoQuery, ListTodoQuery } from './query';
 import { ApiBearerAuth, ApiBody, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { DeleteResult } from 'typeorm';
-import { BasePageable } from '@common/model';
+import { BasePageable, JwtPayload } from '@common/model';
 import { ParseUUIDPipe } from '@common/pipe';
-import { JwtAuthGuard } from '@api/auth';
 import { GetUser } from '@common/decorator';
-import { User } from '@api/user';
-import { TodoGuard } from '@api/todo/todo.guard';
+import { JwtAuthGuard } from '@api/auth';
+import { CreateTodoDto, GetToDoDto, GetListTodoDto, ListTodoDto, TodoDto, UpdateTodoDto } from './dto';
+import { CreateTodoCommand, RemoveTodoCommand, UpdateTodoCommand } from './command';
+import { GetTodoQuery, ListTodoQuery } from './query';
+import { TodoGuard } from './todo.guard';
 
 @ApiTags('Todo')
 @ApiBearerAuth()
@@ -28,7 +27,7 @@ export class TodoController {
   @ApiOperation({ summary: 'Create Todo', description: 'Create Todo' })
   @ApiBody({ type: CreateTodoDto })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
-  create(@Body() dto: CreateTodoDto, @GetUser() user: any): Promise<TodoDto> {
+  create(@Body() dto: CreateTodoDto, @GetUser() user: JwtPayload): Promise<TodoDto> {
     return this.commandBus.execute(new CreateTodoCommand({ ...dto, createdBy: user.sub }));
   }
 

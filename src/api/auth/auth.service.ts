@@ -1,9 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AppLog } from '@shared/app-log';
-import { AuthCredentialDto, JwtPayload } from './dto';
+import { AuthCredentialDto } from './dto';
 import { UserService } from '@api/user';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { JwtPayload } from '@common/model';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,7 @@ export class AuthService {
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException({
-        message: 'Invalid Login Credentials',
+        message: 'Invalid login credentials',
         error: 'Unauthorized',
       });
     }

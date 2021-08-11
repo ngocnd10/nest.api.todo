@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
 import { TodoService } from './todo.service';
 
 @Injectable()
@@ -9,11 +9,22 @@ export class TodoGuard implements CanActivate {
 
     const userId = request.user.sub;
     if (!userId) {
-      return false;
+      throw new ForbiddenException({
+        message: 'Forbidden resource',
+        error: 'Forbidden',
+      });
     }
 
     const id = request.body.id || request.params.id;
     const todo = await this.todoService.findById(id);
-    return todo?.createdBy === userId;
+
+    if (!(todo?.createdBy === userId)) {
+      throw new ForbiddenException({
+        message: 'Forbidden resource',
+        error: 'Forbidden',
+      });
+    }
+
+    return true;
   }
 }
