@@ -1,5 +1,5 @@
-import { CreateTodoHandler } from './create-user/create-user.command.handler';
+import { CreateUserHandler } from './create-user/create-user.command.handler';
 
 export * from './create-user/create-user.command';
 
-export const commandHandlers = [CreateTodoHandler];
+export const commandHandlers = [CreateUserHandler];

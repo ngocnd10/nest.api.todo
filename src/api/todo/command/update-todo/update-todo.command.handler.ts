@@ -1,13 +1,13 @@
-import { UpdateTodoCommand } from './update-todo.command';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { TodoDto } from '../../dto';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
-import { plainToClass } from 'class-transformer';
-import { Todo } from '../../entity';
-import { AppLog } from '@shared/app-log';
+import { NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TodoRepository } from '../../repository';
+import { plainToClass } from 'class-transformer';
 import { isNil } from 'lodash';
+import { AppLog } from '@shared/app-log';
+import { TodoDto } from '../../dto';
+import { Todo } from '../../entity';
+import { TodoRepository } from '../../repository';
+import { UpdateTodoCommand } from './update-todo.command';
 
 @CommandHandler(UpdateTodoCommand)
 export class UpdateTodoHandler implements ICommandHandler<UpdateTodoCommand> {

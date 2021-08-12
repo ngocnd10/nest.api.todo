@@ -1,9 +1,9 @@
-import { RemoveTodoCommand } from './remove-todo.command';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { AppLog } from '@shared/app-log';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TodoRepository } from '../../repository';
 import { DeleteResult } from 'typeorm';
+import { AppLog } from '@shared/app-log';
+import { TodoRepository } from '../../repository';
+import { RemoveTodoCommand } from './remove-todo.command';
 
 @CommandHandler(RemoveTodoCommand)
 export class RemoveTodoHandler implements ICommandHandler<RemoveTodoCommand> {
@@ -15,7 +15,8 @@ export class RemoveTodoHandler implements ICommandHandler<RemoveTodoCommand> {
     appLog.setContextAndFileName(RemoveTodoHandler.name, __filename);
   }
 
-  execute(command: RemoveTodoCommand): Promise<DeleteResult> {
-    return this.todoRepository.delete(command.id);
+  async execute(command: RemoveTodoCommand): Promise<boolean> {
+    const rs: DeleteResult = await this.todoRepository.delete(command.id);
+    return !!rs.affected;
   }
 }

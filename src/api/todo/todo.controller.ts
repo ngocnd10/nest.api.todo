@@ -53,7 +53,7 @@ export class TodoController {
   @ApiOperation({ summary: 'Update Todo', description: 'Update Todo' })
   @ApiBody({ type: UpdateTodoDto })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
-  update(@Param('id') id: string, @Body() dto: UpdateTodoDto, @GetUser() user: any): Promise<TodoDto> {
+  update(@Param('id') id: string, @Body() dto: UpdateTodoDto, @GetUser() user: JwtPayload): Promise<TodoDto> {
     return this.commandBus.execute(new UpdateTodoCommand(id, { ...dto, updatedBy: user.sub }));
   }
 
@@ -62,7 +62,7 @@ export class TodoController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Delete Todo', description: 'Delete Todo' })
   @ApiOkResponse({ type: DeleteResult, description: 'Success' })
-  remove(@Param('id') id: string): Promise<DeleteResult> {
+  remove(@Param('id') id: string): Promise<boolean> {
     return this.commandBus.execute(new RemoveTodoCommand(id));
   }
 }
