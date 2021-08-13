@@ -1,7 +1,7 @@
 import { EntityRepository, Repository, Brackets } from 'typeorm';
 import { Todo } from '../entity';
 import { ListTodoQuery } from '../query';
-import { CreateTodoDto, UpdateTodoDto } from '../dto';
+import { CreateTodoDto } from '../dto';
 
 @EntityRepository(Todo)
 export class TodoRepository extends Repository<Todo> {

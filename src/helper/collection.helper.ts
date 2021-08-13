@@ -17,7 +17,7 @@ export class CollectionHelper {
     return this.raw[0];
   }
 
-  last<T>(arr: T[]): T {
+  last<T>(): T {
     return this.raw[this.size - 1];
   }
 

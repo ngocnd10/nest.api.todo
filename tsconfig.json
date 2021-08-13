@@ -16,7 +16,8 @@
       "@common/*": ["src/common/*"],
       "@shared/*": ["src/shared/*"],
       "@api/*": ["src/api/*"],
-      "@helper":["src/helper"]
+      "@helper":["src/helper"],
+      "@constant":["src/constant"]
     }
   }
 }

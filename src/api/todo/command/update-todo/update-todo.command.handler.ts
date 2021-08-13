@@ -2,12 +2,12 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
-import { isNil } from 'lodash';
 import { AppLog } from '@shared/app-log';
 import { TodoDto } from '../../dto';
 import { Todo } from '../../entity';
 import { TodoRepository } from '../../repository';
 import { UpdateTodoCommand } from './update-todo.command';
+import { LodashHelper } from '@helper';
 
 @CommandHandler(UpdateTodoCommand)
 export class UpdateTodoHandler implements ICommandHandler<UpdateTodoCommand> {
@@ -25,7 +25,7 @@ export class UpdateTodoHandler implements ICommandHandler<UpdateTodoCommand> {
 
     let todo = await this.todoRepository.findOne(id);
 
-    if (isNil(todo)) {
+    if (LodashHelper.isNil(todo)) {
       this.appLog.error({
         message: 'The record is not found',
         error: 'Not Found',

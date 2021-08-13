@@ -5,7 +5,7 @@ import { TodoRepository } from '../../repository';
 import { AppLog } from '@shared/app-log';
 import { plainToClass } from 'class-transformer';
 import { TodoDto } from '../../dto';
-import { isNil } from '@nestjs/common/utils/shared.utils';
+import { LodashHelper } from '@helper';
 
 @CommandHandler(CreateTodoCommand)
 export class CreateTodoHandler implements ICommandHandler<CreateTodoCommand> {
@@ -20,7 +20,7 @@ export class CreateTodoHandler implements ICommandHandler<CreateTodoCommand> {
   async execute(command: CreateTodoCommand): Promise<TodoDto> {
     const { body, createdBy, title } = command.props;
 
-    if (isNil(title) && isNil(body)) {
+    if (LodashHelper.isNil(title) && LodashHelper.isNil(body)) {
       this.appLog.error('The title and body are not defined');
       return null;
     }

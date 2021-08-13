@@ -6,7 +6,7 @@ import { UserRepository, UserService } from '@api/user';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './auth.constants';
+import { jwtConstant } from '@constant';
 import { JwtStrategy } from '@api/auth/strategy';
 
 @Module({
@@ -14,7 +14,7 @@ import { JwtStrategy } from '@api/auth/strategy';
     AppLogModule,
     PassportModule,
     JwtModule.register({
-      secret: jwtConstants.secret,
+      secret: jwtConstant.secret,
       signOptions: { expiresIn: '1h' },
     }),
     TypeOrmModule.forFeature([UserRepository]),
