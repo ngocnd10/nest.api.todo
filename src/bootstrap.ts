@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { RequestMethod } from '@nestjs/common';
-import { DocumentBuilder, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
 import { AppConfig } from '@shared/app-config';
 import { AppLog } from '@shared/app-log';
 import { ValidationPipe } from '@common/pipe';
+import { configSwagger } from './swagger.config';
 
 export async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -23,18 +23,7 @@ export async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
 
-  const config = new DocumentBuilder()
-    .setTitle('Todo App')
-    .setDescription('The todo API description')
-    .setVersion(appConfig.version)
-    .addBearerAuth()
-    .addServer(`${url}/${apiPrefix}`)
-    .build();
-  const options: SwaggerDocumentOptions = {
-    ignoreGlobalPrefix: true,
-  };
-  const document = SwaggerModule.createDocument(app, config, options);
-  SwaggerModule.setup('swagger', app, document);
+  configSwagger(app, { version: appConfig.version, url, apiPrefix });
 
   await app.listen(port);
   appLog.log(`Server is listen on ${url}`);

@@ -18,7 +18,7 @@ export class CreateTodoHandler implements ICommandHandler<CreateTodoCommand> {
   }
 
   async execute(command: CreateTodoCommand): Promise<TodoDto> {
-    const { body, title, createdBy } = command.props;
+    const { body, createdBy, title } = command.props;
 
     if (isNil(title) && isNil(body)) {
       this.appLog.error('The title and body are not defined');

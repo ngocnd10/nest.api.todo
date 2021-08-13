@@ -15,7 +15,8 @@
     "paths": {
       "@common/*": ["src/common/*"],
       "@shared/*": ["src/shared/*"],
-      "@api/*": ["src/api/*"]
+      "@api/*": ["src/api/*"],
+      "@helper":["src/helper"]
     }
   }
 }

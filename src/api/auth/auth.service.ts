@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AppLog } from '@shared/app-log';
 import { AuthCredentialDto } from './dto';
 import { UserService } from '@api/user';
-import * as bcrypt from 'bcrypt';
+import { HashHelper } from '@helper';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from '@common/model';
 import { RedisCacheService } from '@shared/redis';
@@ -22,7 +22,7 @@ export class AuthService {
     const { password, username } = dto;
     const user = await this.usersService.findByUsername(username);
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    if (!user || !(await HashHelper.compare(password, user.password))) {
       throw new UnauthorizedException({
         message: 'Invalid login credentials',
         error: 'Unauthorized',

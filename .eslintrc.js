@@ -43,6 +43,5 @@ module.exports = {
     '@typescript-eslint/quotes': ['warn', 'single', { allowTemplateLiterals: true }],
     'sort-destructure-keys/sort-destructure-keys': [1, { caseSensitive: false }],
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
-    eqeqeq: "error"
   },
 };
