@@ -4,6 +4,8 @@ api:
 http:
   host: '127.0.0.1'
   port: 3000
+  timeout: 5000
+  max-redirects: 5
 
 db:
   postgres:

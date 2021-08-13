@@ -6,7 +6,7 @@ import { TodoRepository } from '../../repository';
 import { plainToClass } from 'class-transformer';
 import { NotFoundException } from '@nestjs/common';
 import { AppLog } from '@shared/app-log';
-import { LodashHelper } from '@helper';
+import { LodashHelper } from '@common/helper';
 
 @QueryHandler(GetTodoQuery)
 export class GetTodoHandler implements IQueryHandler<GetTodoQuery> {

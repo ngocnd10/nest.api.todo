@@ -1,6 +1,6 @@
 import { NextFunction } from 'express';
 import { NestMiddleware } from '@nestjs/common';
-import { CommonHelper } from '@helper';
+import { CommonHelper } from '@common/helper';
 
 export class GenerateRequestIdMiddleware implements NestMiddleware {
   use(req: any, res: any, next: NextFunction) {

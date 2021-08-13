@@ -6,7 +6,7 @@ import { UserRepository, UserService } from '@api/user';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstant } from '@constant';
+import { jwtConstant } from '@common/constant';
 import { JwtStrategy } from '@api/auth/strategy';
 
 @Module({

@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { ISO_8601_DATE_ONLY, REG_EMAIL } from '@constant';
+import { ISO_8601_DATE_ONLY, REG_EMAIL } from '@common/constant';
 import { v4 as uuidv4 } from 'uuid';
 
 export class CommonHelper {

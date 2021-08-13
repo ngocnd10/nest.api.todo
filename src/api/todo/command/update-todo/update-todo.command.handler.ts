@@ -7,7 +7,7 @@ import { TodoDto } from '../../dto';
 import { Todo } from '../../entity';
 import { TodoRepository } from '../../repository';
 import { UpdateTodoCommand } from './update-todo.command';
-import { LodashHelper } from '@helper';
+import { LodashHelper } from '@common/helper';
 
 @CommandHandler(UpdateTodoCommand)
 export class UpdateTodoHandler implements ICommandHandler<UpdateTodoCommand> {

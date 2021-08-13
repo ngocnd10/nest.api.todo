@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AppLog } from '@shared/app-log';
 import { AuthCredentialDto } from './dto';
 import { UserService } from '@api/user';
-import { HashHelper } from '@helper';
+import { HashHelper } from '@common/helper';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from '@common/model';
 import { RedisCacheService } from '@shared/redis';

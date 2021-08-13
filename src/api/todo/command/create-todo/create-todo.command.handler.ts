@@ -5,7 +5,7 @@ import { TodoRepository } from '../../repository';
 import { AppLog } from '@shared/app-log';
 import { plainToClass } from 'class-transformer';
 import { TodoDto } from '../../dto';
-import { LodashHelper } from '@helper';
+import { LodashHelper } from '@common/helper';
 
 @CommandHandler(CreateTodoCommand)
 export class CreateTodoHandler implements ICommandHandler<CreateTodoCommand> {
