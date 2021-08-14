@@ -1,4 +1,4 @@
-import { CreateUserHandler } from './create-user/create-user.command.handler';
+import { CreateUserHandler } from './create-user';
 
 export * from './create-user/create-user.command';
 

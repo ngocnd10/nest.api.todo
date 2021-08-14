@@ -1,7 +1,7 @@
-import { UserController } from '@api/user';
 import { CommandBus } from '@nestjs/cqrs';
 import { Test } from '@nestjs/testing';
-import { CreateUserDto, UserDto } from '@api/user/dto';
+import { CreateUserDto, UserDto } from '../dto';
+import { UserController } from '../user.controller';
 
 const mockUser = {
   id: 'someId',

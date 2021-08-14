@@ -1,9 +1,9 @@
-import { UserRepository } from '@api/user';
-import { AppLog } from '@shared/app-log';
-import { Test } from '@nestjs/testing';
-import { CreateUserHandler } from '@api/user/command/create-user/create-user.command.handler';
-import { CreateUserCommand } from '@api/user/command';
 import { ConflictException } from '@nestjs/common';
+import { Test } from '@nestjs/testing';
+import { AppLog } from '@shared/app-log';
+import { UserRepository } from '../repository';
+import { CreateUserHandler } from '../command/create-user';
+import { CreateUserCommand } from '../command';
 
 const mockUserRepository = () => ({
   createUser: jest.fn(),
@@ -11,6 +11,7 @@ const mockUserRepository = () => ({
 
 const mockAppLog = () => ({
   setContextAndFileName: jest.fn(),
+  error: jest.fn(),
 });
 
 describe('CreateUserHandler', () => {
