@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { AppLogModule } from '@shared/app-log';
 import { UserRepository, UserService } from '@api/user';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
@@ -11,7 +10,6 @@ import { JwtStrategy } from '@api/auth/strategy';
 
 @Module({
   imports: [
-    AppLogModule,
     PassportModule,
     JwtModule.register({
       secret: jwtConstant.secret,

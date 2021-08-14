@@ -7,4 +7,3 @@ export * from './decorator';
 export * from './guard';
 export * from './constant';
 export * from './helper';
-export * from './rest';

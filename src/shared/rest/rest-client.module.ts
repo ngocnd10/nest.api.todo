@@ -1,8 +1,9 @@
 import { HttpModule } from '@nestjs/axios';
-import { Module } from '@nestjs/common';
-import { AppConfig } from '@shared/app-config';
-import { PokemonRestService } from '@shared/rest/pokemon/pokemon-rest.service';
+import { Global, Module } from '@nestjs/common';
+import { AppConfig } from '../app-config';
+import { restProviders } from './service';
 
+@Global()
 @Module({
   imports: [
     HttpModule.registerAsync({
@@ -13,7 +14,7 @@ import { PokemonRestService } from '@shared/rest/pokemon/pokemon-rest.service';
       inject: [AppConfig],
     }),
   ],
-  providers: [PokemonRestService],
-  exports: [PokemonRestService],
+  providers: [...restProviders],
+  exports: [...restProviders],
 })
 export class RestClientModule {}

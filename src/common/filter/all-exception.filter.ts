@@ -4,17 +4,16 @@ import { QueryFailedError } from 'typeorm';
 import { AppLog } from '@shared/app-log';
 
 @Catch()
-export class HttpExceptionFilter implements ExceptionFilter {
+export class AllExceptionFilter implements ExceptionFilter {
   constructor(private appLog: AppLog) {}
 
   catch(exception: any, host: ArgumentsHost): any {
     const ctx: HttpArgumentsHost = host.switchToHttp();
     const response: any = ctx.getResponse();
     const request: any = ctx.getRequest();
+    const { permissionCode, requestId, url } = request;
 
-    if (exception.getStatus() === 503) {
-      return response.status(exception.getStatus()).json(exception.getResponse());
-    }
+    const isHttpException = exception instanceof HttpException;
 
     let statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
     let errInfo: any = {
@@ -22,14 +21,12 @@ export class HttpExceptionFilter implements ExceptionFilter {
       error: 'Internal server error',
     };
 
-    if (exception instanceof HttpException) {
+    if (isHttpException) {
       statusCode = exception.getStatus();
       errInfo = exception.getResponse();
     } else {
       this.handleMessage(exception);
     }
-
-    const { permissionCode, requestId, url } = request;
 
     if (url.match(/health|login/)) {
       return response.status(statusCode).json(errInfo);

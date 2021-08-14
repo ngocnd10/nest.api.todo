@@ -5,7 +5,6 @@ import { UserService } from '@api/user';
 import { HashHelper } from '@common/helper';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from '@common/model';
-import { RedisCacheService } from '@shared/redis';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +12,6 @@ export class AuthService {
     private appLog: AppLog,
     private readonly jwtService: JwtService,
     private readonly usersService: UserService,
-    private redis: RedisCacheService,
   ) {
     appLog.setContextAndFileName(AuthService.name, __filename);
   }
