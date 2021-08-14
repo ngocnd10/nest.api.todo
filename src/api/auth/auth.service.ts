@@ -5,6 +5,7 @@ import { UserService } from '@api/user';
 import { HashHelper } from '@common/helper';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from '@common/model';
+import { ERROR } from '@common/constant';
 
 @Injectable()
 export class AuthService {
@@ -21,10 +22,7 @@ export class AuthService {
     const user = await this.usersService.findByUsername(username);
 
     if (!user || !(await HashHelper.compare(password, user.password))) {
-      throw new UnauthorizedException({
-        message: 'Invalid login credentials',
-        error: 'Unauthorized',
-      });
+      throw new UnauthorizedException(ERROR.INVALID_LOGIN);
     }
 
     const payload: JwtPayload = { username, sub: user.id };

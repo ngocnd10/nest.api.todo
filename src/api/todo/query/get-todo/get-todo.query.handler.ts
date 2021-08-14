@@ -7,6 +7,7 @@ import { plainToClass } from 'class-transformer';
 import { NotFoundException } from '@nestjs/common';
 import { AppLog } from '@shared/app-log';
 import { LodashHelper } from '@common/helper';
+import { ERROR } from '@common/constant';
 
 @QueryHandler(GetTodoQuery)
 export class GetTodoHandler implements IQueryHandler<GetTodoQuery> {
@@ -22,14 +23,8 @@ export class GetTodoHandler implements IQueryHandler<GetTodoQuery> {
     const todo = await this.todoRepository.findOne(query.id);
 
     if (LodashHelper.isNil(todo)) {
-      this.appLog.error({
-        message: 'The record is not found',
-        error: 'Not Found',
-      });
-      throw new NotFoundException({
-        message: 'The record is not found',
-        error: 'Not Found',
-      });
+      this.appLog.error('The todo is not found');
+      throw new NotFoundException(ERROR.TODO_NOT_FOUND);
     }
 
     return plainToClass(TodoDto, todo, { excludeExtraneousValues: true });

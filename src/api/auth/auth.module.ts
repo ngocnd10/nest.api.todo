@@ -5,15 +5,18 @@ import { UserRepository, UserService } from '@api/user';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstant } from '@common/constant';
 import { JwtStrategy } from '@api/auth/strategy';
+import { AppConfig } from '@shared/app-config';
 
 @Module({
   imports: [
     PassportModule,
-    JwtModule.register({
-      secret: jwtConstant.secret,
-      signOptions: { expiresIn: '1h' },
+    JwtModule.registerAsync({
+      useFactory: async configService => ({
+        secret: configService.get('jwt.secret'),
+        signOptions: { expiresIn: configService.get('jwt.expire') },
+      }),
+      inject: [AppConfig],
     }),
     TypeOrmModule.forFeature([UserRepository]),
   ],

@@ -24,13 +24,8 @@ export class AllExceptionFilter implements ExceptionFilter {
     if (isHttpException) {
       statusCode = exception.getStatus();
       errInfo = exception.getResponse();
-    } else {
-      this.handleMessage(exception);
     }
-
-    if (url.match(/health|login/)) {
-      return response.status(statusCode).json(errInfo);
-    }
+    this.handleMessage(exception);
 
     const responseBody = {
       apiUrl: url,
@@ -51,7 +46,10 @@ export class AllExceptionFilter implements ExceptionFilter {
   private handleMessage(exception: HttpException | QueryFailedError | Error): void {
     let message = 'Internal Server Error';
 
-    if (exception instanceof QueryFailedError) {
+    if (exception instanceof HttpException) {
+      this.appLog.error(exception.getResponse());
+      return;
+    } else if (exception instanceof QueryFailedError) {
       message = exception.stack.toString();
     } else if (exception instanceof Error) {
       message = exception.stack.toString();

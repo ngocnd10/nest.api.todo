@@ -7,6 +7,10 @@ http:
   timeout: 5000
   max-redirects: 5
 
+jwt:
+  secret: 'secretKey'
+  expire: '1h'
+
 db:
   postgres:
     schema: 'nest_service_todo'

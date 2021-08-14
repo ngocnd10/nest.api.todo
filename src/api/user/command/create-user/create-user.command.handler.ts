@@ -25,10 +25,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
     } catch (error) {
       if (error.code === '23505') {
         // duplicate username
-        this.appLog.error({
-          message: 'Username already exists',
-          error: 'Conflict',
-        });
+        this.appLog.error('Username already exists');
         throw new ConflictException({
           message: 'Username already exists',
           error: 'Conflict',

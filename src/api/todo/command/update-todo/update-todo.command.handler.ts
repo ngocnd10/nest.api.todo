@@ -8,6 +8,7 @@ import { Todo } from '../../entity';
 import { TodoRepository } from '../../repository';
 import { UpdateTodoCommand } from './update-todo.command';
 import { LodashHelper } from '@common/helper';
+import { ERROR } from '@common/constant';
 
 @CommandHandler(UpdateTodoCommand)
 export class UpdateTodoHandler implements ICommandHandler<UpdateTodoCommand> {
@@ -26,14 +27,8 @@ export class UpdateTodoHandler implements ICommandHandler<UpdateTodoCommand> {
     let todo = await this.todoRepository.findOne(id);
 
     if (LodashHelper.isNil(todo)) {
-      this.appLog.error({
-        message: 'The record is not found',
-        error: 'Not Found',
-      });
-      throw new NotFoundException({
-        message: 'The record is not found',
-        error: 'Not Found',
-      });
+      this.appLog.error('The todo is not found');
+      throw new NotFoundException(ERROR.TODO_NOT_FOUND);
     }
 
     todo = { ...todo, title, body, updatedBy } as Todo;
