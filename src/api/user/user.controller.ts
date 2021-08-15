@@ -22,6 +22,6 @@ export class UserController {
   @ApiBody({ type: CreateUserDto })
   @ApiOkResponse({ type: GetUserDto, description: 'Success' })
   async create(@Body() dto: CreateUserDto): Promise<UserDto> {
-    return await this.commandBus.execute(new CreateUserCommand(dto));
+    return await this.commandBus.execute(CreateUserCommand.create(dto));
   }
 }

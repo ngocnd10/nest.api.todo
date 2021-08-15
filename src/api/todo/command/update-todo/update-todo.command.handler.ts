@@ -20,13 +20,12 @@ export class UpdateTodoHandler implements ICommandHandler<UpdateTodoCommand> {
   }
 
   async execute(command: UpdateTodoCommand): Promise<TodoDto> {
-    const { body, title, updatedBy } = command.props;
-    const { id } = command;
+    const { body, id, title, updatedBy } = command.props;
 
     let todo = await this.todoRepository.findOne(id);
 
     if (LodashHelper.isNil(todo)) {
-      this.appLog.error('The todo is not found', { id });
+      this.appLog.error('The todo is not found: Id=', id);
       throw new NotFoundException(ERROR.TODO_NOT_FOUND);
     }
 

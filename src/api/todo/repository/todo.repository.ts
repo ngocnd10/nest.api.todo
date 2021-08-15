@@ -5,15 +5,12 @@ import { CreateTodoDto } from '../dto';
 
 @EntityRepository(Todo)
 export class TodoRepository extends Repository<Todo> {
-  async createTodo(createTodoDto: CreateTodoDto): Promise<Todo> {
-    const { body, createdBy, title } = createTodoDto;
+  async createTodo({ body, createdBy, title }): Promise<Todo> {
     const todo = this.create({ title, body, createdBy });
     return await this.save(todo);
   }
 
-  async getAllAndCount(query: ListTodoQuery): Promise<[Todo[], number]> {
-    const { keyword, limit, orderBy, page = 0, sortBy } = query.props;
-
+  async getAllAndCount({ keyword, limit, orderBy, page = 0, sortBy }): Promise<[Todo[], number]> {
     const queryBuilder = this.createQueryBuilder('todo');
 
     if (limit) {

@@ -1,3 +1,11 @@
+export interface RemoveTodoCommandProps {
+  id: string;
+}
+
 export class RemoveTodoCommand {
-  constructor(public readonly id: string) {}
+  private constructor(readonly props: RemoveTodoCommandProps) {}
+
+  static create(data: RemoveTodoCommandProps) {
+    return new RemoveTodoCommand(data);
+  }
 }

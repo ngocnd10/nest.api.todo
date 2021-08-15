@@ -1,5 +1,11 @@
-import { CreateUserDto } from '../../dto';
+export interface CreateUserCommandProps {
+  username: string;
+}
 
 export class CreateUserCommand {
-  constructor(public readonly props: CreateUserDto) {}
+  private constructor(readonly props: CreateUserCommandProps) {}
+
+  static create(data: CreateUserCommandProps) {
+    return new CreateUserCommand(data);
+  }
 }

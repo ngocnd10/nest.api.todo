@@ -16,7 +16,8 @@ export class RemoveTodoHandler implements ICommandHandler<RemoveTodoCommand> {
   }
 
   async execute(command: RemoveTodoCommand): Promise<boolean> {
-    const rs: DeleteResult = await this.todoRepository.delete(command.id);
+    const { id } = command.props;
+    const rs: DeleteResult = await this.todoRepository.delete(id);
     return !!rs.affected;
   }
 }

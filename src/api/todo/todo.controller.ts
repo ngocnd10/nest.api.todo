@@ -27,8 +27,8 @@ export class TodoController {
   @ApiOperation({ summary: 'Create Todo', description: 'Create Todo' })
   @ApiBody({ type: CreateTodoDto })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
-  create(@Body() dto: CreateTodoDto, @GetUser() user: JwtPayload): Promise<TodoDto> {
-    return this.commandBus.execute(new CreateTodoCommand({ ...dto, createdBy: user.sub }));
+  async create(@Body() dto: CreateTodoDto, @GetUser() user: JwtPayload): Promise<TodoDto> {
+    return await this.commandBus.execute(CreateTodoCommand.create({ ...dto, createdBy: user.sub }));
   }
 
   @Post('list')
@@ -36,15 +36,15 @@ export class TodoController {
   @ApiOperation({ summary: 'Search Todo List', description: 'Search Todo List' })
   @ApiBody({ type: ListTodoDto })
   @ApiOkResponse({ type: GetListTodoDto, description: 'Success' })
-  findAll(@Body() dto: ListTodoDto): Promise<BasePageable<TodoDto>> {
-    return this.queryBus.execute(new ListTodoQuery(dto));
+  async findAll(@Body() dto: ListTodoDto): Promise<BasePageable<TodoDto>> {
+    return await this.queryBus.execute(ListTodoQuery.create(dto));
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get Todo By Id', description: 'Get Todo By Id' })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
-  findOne(@Param('id', ParseUUIDPipe) id: string): Promise<TodoDto> {
-    return this.queryBus.execute(new GetTodoQuery(id));
+  async findOne(@Param('id', ParseUUIDPipe) id: string): Promise<TodoDto> {
+    return await this.queryBus.execute(GetTodoQuery.create({ id }));
   }
 
   @Put(':id')
@@ -53,8 +53,8 @@ export class TodoController {
   @ApiOperation({ summary: 'Update Todo', description: 'Update Todo' })
   @ApiBody({ type: UpdateTodoDto })
   @ApiOkResponse({ type: GetToDoDto, description: 'Success' })
-  update(@Param('id') id: string, @Body() dto: UpdateTodoDto, @GetUser() user: JwtPayload): Promise<TodoDto> {
-    return this.commandBus.execute(new UpdateTodoCommand(id, { ...dto, updatedBy: user.sub }));
+  async update(@Param('id') id: string, @Body() dto: UpdateTodoDto, @GetUser() user: JwtPayload): Promise<TodoDto> {
+    return await this.commandBus.execute(UpdateTodoCommand.create({ ...dto, updatedBy: user.sub, id }));
   }
 
   @Delete(':id')
@@ -62,7 +62,7 @@ export class TodoController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Delete Todo', description: 'Delete Todo' })
   @ApiOkResponse({ type: DeleteResult, description: 'Success' })
-  remove(@Param('id') id: string): Promise<boolean> {
-    return this.commandBus.execute(new RemoveTodoCommand(id));
+  async remove(@Param('id') id: string): Promise<boolean> {
+    return await this.commandBus.execute(RemoveTodoCommand.create({ id }));
   }
 }

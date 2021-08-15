@@ -14,6 +14,8 @@ const mockAppLog = () => ({
   error: jest.fn(),
 });
 
+const mockCommand = CreateUserCommand.create({ username: 'Ariel' });
+
 describe('CreateUserHandler', () => {
   let handler: CreateUserHandler;
   let userRepository;
@@ -43,8 +45,7 @@ describe('CreateUserHandler', () => {
       };
 
       userRepository.createUser.mockResolvedValue(mockUser);
-      const command = new CreateUserCommand({ username: 'Ariel' });
-      const result = await handler.execute(command);
+      const result = await handler.execute(mockCommand);
       expect(result).toEqual(mockUser);
     });
 
@@ -56,9 +57,8 @@ describe('CreateUserHandler', () => {
       userRepository.createUser.mockImplementation(() => {
         throw mockError;
       });
-      const command = new CreateUserCommand({ username: 'Ariel' });
       try {
-        await handler.execute(command);
+        await handler.execute(mockCommand);
       } catch (error) {
         expect(error).toBeInstanceOf(ConflictException);
       }
@@ -72,9 +72,8 @@ describe('CreateUserHandler', () => {
       userRepository.createUser.mockImplementation(() => {
         throw mockError;
       });
-      const command = new CreateUserCommand({ username: 'Ariel' });
       try {
-        await handler.execute(command);
+        await handler.execute(mockCommand);
       } catch (error) {
         expect(error.stack).toEqual('err');
       }

@@ -14,8 +14,8 @@ export class ListTodoHandler implements IQueryHandler<ListTodoQuery> {
   ) {}
 
   async execute(query: ListTodoQuery): Promise<BasePageable<TodoDto>> {
-    const { limit, page = 0 } = query.props;
-    const [todos, total] = await this.todoRepository.getAllAndCount(query);
+    const { keyword, limit, orderBy, page = 0, sortBy } = query.props;
+    const [todos, total] = await this.todoRepository.getAllAndCount({ keyword, limit, orderBy, page, sortBy });
     const items = MapHelper.mapToDTOs(TodoDto, todos);
     return {
       items,

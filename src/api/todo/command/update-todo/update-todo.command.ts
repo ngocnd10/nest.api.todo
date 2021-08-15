@@ -1,5 +1,14 @@
-import { UpdateTodoDto } from '../../dto';
+export interface UpdateTodoCommandProps {
+  id: string;
+  title?: string;
+  body?: string;
+  updatedBy?: string;
+}
 
 export class UpdateTodoCommand {
-  constructor(public readonly id: string, public readonly props: UpdateTodoDto) {}
+  private constructor(readonly props: UpdateTodoCommandProps) {}
+
+  static create(data: UpdateTodoCommandProps) {
+    return new UpdateTodoCommand(data);
+  }
 }

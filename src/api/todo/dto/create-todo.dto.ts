@@ -11,6 +11,4 @@ export class CreateTodoDto {
   @IsString()
   @IsOptional()
   body: string;
-
-  createdBy: string;
 }

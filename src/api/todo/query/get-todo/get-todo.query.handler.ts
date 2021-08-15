@@ -19,10 +19,11 @@ export class GetTodoHandler implements IQueryHandler<GetTodoQuery> {
   }
 
   async execute(query: GetTodoQuery): Promise<TodoDto> {
-    const todo = await this.todoRepository.findOne(query.id);
+    const { id } = query.props;
+    const todo = await this.todoRepository.findOne(id);
 
     if (LodashHelper.isNil(todo)) {
-      this.appLog.error('The todo is not found', query);
+      this.appLog.error('The todo is not found: Id=', id);
       throw new NotFoundException(ERROR.TODO_NOT_FOUND);
     }
 

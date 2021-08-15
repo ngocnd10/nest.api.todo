@@ -1,5 +1,13 @@
-import { CreateTodoDto } from '../../dto';
+export interface CreateTodoCommandProps {
+  title?: string;
+  body?: string;
+  createdBy?: string;
+}
 
 export class CreateTodoCommand {
-  constructor(public readonly props: CreateTodoDto) {}
+  private constructor(readonly props: CreateTodoCommandProps) {}
+
+  static create(data: CreateTodoCommandProps) {
+    return new CreateTodoCommand(data);
+  }
 }
