@@ -1,11 +1,11 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { plainToClass } from 'class-transformer';
 import { AppLog } from '@shared/app-log';
 import { UserDto } from '../../dto';
 import { UserRepository } from '../../repository';
 import { CreateUserCommand } from './create-user.command';
 import { ConflictException } from '@nestjs/common';
+import { MapHelper } from '@common/helper';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
@@ -25,7 +25,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
     } catch (error) {
       if (error.code === '23505') {
         // duplicate username
-        this.appLog.error('Username already exists');
+        this.appLog.error('Username already exists', { username });
         throw new ConflictException({
           message: 'Username already exists',
           error: 'Conflict',
@@ -33,6 +33,6 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
       }
       throw error;
     }
-    return plainToClass(UserDto, entity, { excludeExtraneousValues: true });
+    return MapHelper.mapToDTO(UserDto, entity);
   }
 }

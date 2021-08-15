@@ -4,7 +4,7 @@ import { TodoRepository } from '../../repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BasePageable } from '@common/model';
 import { TodoDto } from '../../dto';
-import { plainToClass } from 'class-transformer';
+import { MapHelper } from '@common/helper';
 
 @QueryHandler(ListTodoQuery)
 export class ListTodoHandler implements IQueryHandler<ListTodoQuery> {
@@ -16,9 +16,7 @@ export class ListTodoHandler implements IQueryHandler<ListTodoQuery> {
   async execute(query: ListTodoQuery): Promise<BasePageable<TodoDto>> {
     const { limit, page = 0 } = query.props;
     const [todos, total] = await this.todoRepository.getAllAndCount(query);
-    const items = plainToClass(TodoDto, todos, {
-      excludeExtraneousValues: true,
-    });
+    const items = MapHelper.mapToDTOs(TodoDto, todos);
     return {
       items,
       page,

@@ -3,10 +3,9 @@ import { GetTodoQuery } from './get-todo.query';
 import { TodoDto } from '../../dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TodoRepository } from '../../repository';
-import { plainToClass } from 'class-transformer';
 import { NotFoundException } from '@nestjs/common';
 import { AppLog } from '@shared/app-log';
-import { LodashHelper } from '@common/helper';
+import { LodashHelper, MapHelper } from '@common/helper';
 import { ERROR } from '@common/constant';
 
 @QueryHandler(GetTodoQuery)
@@ -23,10 +22,10 @@ export class GetTodoHandler implements IQueryHandler<GetTodoQuery> {
     const todo = await this.todoRepository.findOne(query.id);
 
     if (LodashHelper.isNil(todo)) {
-      this.appLog.error('The todo is not found');
+      this.appLog.error('The todo is not found', query);
       throw new NotFoundException(ERROR.TODO_NOT_FOUND);
     }
 
-    return plainToClass(TodoDto, todo, { excludeExtraneousValues: true });
+    return MapHelper.mapToDTO(TodoDto, todo);
   }
 }

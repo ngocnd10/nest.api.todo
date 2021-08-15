@@ -3,9 +3,8 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TodoRepository } from '../../repository';
 import { AppLog } from '@shared/app-log';
-import { plainToClass } from 'class-transformer';
 import { TodoDto } from '../../dto';
-import { LodashHelper } from '@common/helper';
+import { LodashHelper, MapHelper } from '@common/helper';
 
 @CommandHandler(CreateTodoCommand)
 export class CreateTodoHandler implements ICommandHandler<CreateTodoCommand> {
@@ -27,6 +26,6 @@ export class CreateTodoHandler implements ICommandHandler<CreateTodoCommand> {
 
     const entity = await this.todoRepository.createTodo({ title, body, createdBy });
 
-    return plainToClass(TodoDto, entity, { excludeExtraneousValues: true });
+    return MapHelper.mapToDTO(TodoDto, entity);
   }
 }

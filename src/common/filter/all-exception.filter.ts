@@ -25,6 +25,11 @@ export class AllExceptionFilter implements ExceptionFilter {
       statusCode = exception.getStatus();
       errInfo = exception.getResponse();
     }
+
+    if (url.match(/health/)) {
+      return response.status(statusCode).json(errInfo);
+    }
+
     this.handleMessage(exception);
 
     const responseBody = {
@@ -47,8 +52,7 @@ export class AllExceptionFilter implements ExceptionFilter {
     let message = 'Internal Server Error';
 
     if (exception instanceof HttpException) {
-      this.appLog.error(exception.getResponse());
-      return;
+      message = JSON.stringify(exception.getResponse());
     } else if (exception instanceof QueryFailedError) {
       message = exception.stack.toString();
     } else if (exception instanceof Error) {

@@ -30,23 +30,27 @@ export class CommonHelper {
     return today === moment(value).format(ISO_8601_DATE_ONLY);
   }
 
-  static dateStringDiffInDays = (a: any, b: any): number => {
+  static dateStringDiffInDays(a: any, b: any): number {
     return moment.utc(a, moment.ISO_8601).diff(moment.utc(b, moment.ISO_8601), 'days');
-  };
+  }
 
-  static capitalizeFirstChar = (str: string): string => {
+  static capitalizeFirstChar(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1);
-  };
+  }
 
-  static deCapitalizeFirstChar = (str: string): string => {
+  static deCapitalizeFirstChar(str: string): string {
     return str.charAt(0).toLowerCase() + str.slice(1);
-  };
+  }
 
-  static isEmail = (email: string): boolean => {
+  static isEmail(email: string): boolean {
     return !!REG_EMAIL.test(email);
-  };
+  }
 
-  static strAfter = (str: string, substr: string): string => str.split(substr)[1];
+  static strAfter(str: string, substr: string): string {
+    return str.split(substr)[1];
+  }
 
-  static strBefore = (str: string, substr: string): string => str.split(substr)[0];
+  static strBefore(str: string, substr: string): string {
+    return str.split(substr)[0];
+  }
 }
